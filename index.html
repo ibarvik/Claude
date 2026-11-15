@@ -134,6 +134,13 @@ blockquote footer{font-family:var(--body);font-style:normal;font-size:.82rem;col
 .photos a b{display:block;font-weight:500}
 .photos a span{font-size:.8rem;color:var(--muted)}
 
+.hero-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,240px);gap:32px;align-items:start}
+@media (max-width:720px){.hero-top{grid-template-columns:minmax(0,1fr)}.ph.portrait{max-width:220px}}
+figure.ph{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+figure.ph img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--line);background:var(--panel)}
+figure.ph figcaption{font-size:.82rem;color:var(--muted);line-height:1.45}
+figure.ph figcaption span{display:block;font-family:var(--mono);font-size:.7rem}
+.ph-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:20px;align-items:start}
 .quiz-q{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px}
 .quiz-q .btn.right{background:var(--ok);border-color:var(--ok);color:var(--bg)}
 .quiz-q .btn.wrong{border-color:var(--ha);color:var(--ha)}
@@ -146,10 +153,13 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
 
 <header class="hero"><div class="wrap stack-l">
   <div class="spectrum-rule" aria-hidden="true"><span style="background:var(--ha)"></span><span style="background:var(--hb)"></span><span style="background:var(--hg)"></span></div>
+  <div class="hero-top">
   <div class="stack">
     <p class="eyebrow">1926 → 2026 · Annalen der Physik, vols. 79–81</p>
     <h1>One hundred years of the Schrödinger equation</h1>
     <p class="prose">Between January and June 1926, a 38-year-old Austrian professor in Zurich sent four papers to one journal. Together they replaced the picture of electrons as tiny planets with a wave, written <i class="m">ψ</i>, and gave the rule for how that wave moves. Nearly all of chemistry, electronics and quantum technology is calculated from it. Tap any part of the equation to see what it says.</p>
+  </div>
+  <figure class="ph portrait"><img src="images/p1933.jpg" width="520" height="718" alt="Erwin Schrödinger in round glasses, 1933"><figcaption>Erwin Schrödinger in 1933, the year of his Nobel Prize. <span>Narodowe Archiwum Cyfrowe, public domain.</span></figcaption></figure>
   </div>
   <div class="eqn" id="eqn" role="group" aria-label="The time-dependent Schrödinger equation; select a term">
     <button type="button" data-t="i" aria-pressed="false">iℏ</button>
@@ -399,10 +409,15 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
 
 <section id="photos"><div class="wrap stack-l">
   <div class="stack prose"><p class="eyebrow">Archive</p><h2>Photographs</h2>
-  <p>Historic photographs of Schrödinger are held on Wikimedia Commons with their sources and licences. These links open them there.</p></div>
+  <p>All photographs come from Wikimedia Commons, where each file page gives its source and licence. Select a credit to open the original.</p></div>
+  <figure class="ph"><img src="images/solvay.jpg" width="960" height="695" loading="lazy" alt="Group photograph of 29 physicists at the 1927 Solvay Conference"><figcaption>The fifth Solvay Conference, Brussels, October 1927. Schrödinger stands in the back row, sixth from the right. Einstein sits front and centre; Planck, Marie Curie, Lorentz, Bohr, Born, de Broglie, Heisenberg, Pauli and Dirac are all present. <a href="https://commons.wikimedia.org/wiki/File:Solvay_conference_1927.jpg" target="_blank" rel="noopener">Photo: Benjamin Couprie, public domain.</a></figcaption></figure>
+  <div class="ph-row">
+    <figure class="ph"><img src="images/p1914.jpg" width="300" height="378" loading="lazy" alt="Young Erwin Schrödinger, about 1914"><figcaption>Early in his career, about 1914. <a href="https://commons.wikimedia.org/wiki/File:Erwin_Schrodinger2.jpg" target="_blank" rel="noopener">Unknown photographer, public domain.</a></figcaption></figure>
+    <figure class="ph"><img src="images/psmith.jpg" width="520" height="811" loading="lazy" alt="Profile portrait of Schrödinger printed in a German magazine in 1933"><figcaption>A German magazine announces "this year's Nobel Prize for Physics", 1933. <a href="https://commons.wikimedia.org/wiki/File:Portrait_of_Erwin_Schr%C3%B6dinger_(1887-1961),_Physicist_(2551920224).jpg" target="_blank" rel="noopener">Photo: Robertson, Berlin. Smithsonian Institution, no known restrictions.</a></figcaption></figure>
+    <figure class="ph"><img src="images/p1933.jpg" width="520" height="718" loading="lazy" alt="Erwin Schrödinger, 1933"><figcaption>Portrait, 1933. <a href="https://commons.wikimedia.org/wiki/File:Erwin_Schr%C3%B6dinger_-_Narodowe_Archiwum_Cyfrowe_(1-E-939).jpg" target="_blank" rel="noopener">Narodowe Archiwum Cyfrowe (1-E-939), public domain.</a></figcaption></figure>
+  </div>
+  <figure class="ph"><img src="images/dias.jpg" width="960" height="651" loading="lazy" alt="Group of scientists on the steps of the Dublin Institute for Advanced Studies, 1942"><figcaption>Dublin Institute for Advanced Studies, 65 Merrion Square, 1942. Front row from left: Sheila Tinney, Pádraig de Brún, Paul Dirac, Éamon de Valera, Arthur Conway, Arthur Eddington, Erwin Schrödinger, Albert McConnell. <a href="https://commons.wikimedia.org/wiki/File:DIAS_1942_photo.jpg" target="_blank" rel="noopener">Photo: Cecil Keaveney, CC BY 3.0.</a></figcaption></figure>
   <div class="photos">
-    <a href="https://commons.wikimedia.org/wiki/File:Erwin_Schr%C3%B6dinger_(1933).jpg" target="_blank" rel="noopener"><b>Portrait, 1933</b><span>The Nobel Foundation photograph taken in the year of his prize.</span></a>
-    <a href="https://commons.wikimedia.org/wiki/File:Solvay_conference_1927.jpg" target="_blank" rel="noopener"><b>Solvay Conference, 1927</b><span>Schrödinger stands in the back row among Einstein, Bohr, Curie, Heisenberg and Dirac.</span></a>
     <a href="https://commons.wikimedia.org/wiki/Category:Erwin_Schr%C3%B6dinger" target="_blank" rel="noopener"><b>All Schrödinger photographs</b><span>Portraits, the University of Vienna bust, banknote and memorials.</span></a>
     <a href="https://commons.wikimedia.org/wiki/Category:Grave_of_Erwin_Schr%C3%B6dinger" target="_blank" rel="noopener"><b>Grave at Alpbach, Tyrol</b><span>The iron cross carries his equation.</span></a>
     <a href="https://www.nobelprize.org/prizes/physics/1933/schrodinger/biographical/" target="_blank" rel="noopener"><b>Nobel Prize biography</b><span>Official 1933 biography and Nobel lecture.</span></a>
