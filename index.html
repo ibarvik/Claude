@@ -208,7 +208,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
     </div>
     <div class="btnrow" id="shootSnap" aria-label="Jump to an allowed energy"></div>
     <div class="readout"><span id="shootVerdict" class="verdict"></span><span><b>nodes </b><span id="shootNodes"></span></span></div>
-    <p class="small">The allowed values are ½, 1½, 2½ … in units of ℏω. They are evenly spaced, and the lowest is not zero: a quantum particle can never sit perfectly still at the bottom of the trap.</p>
+    <p class="small">The vertical axis is energy, and each grey line marks an allowed value, labelled on the left in units of ℏω (Planck's constant times the trap's vibration frequency) and on the right by its quantum number n. The trap curve and the red line are read against this axis. The blue wave is drawn around the red line so that its shape can be compared with the trap; its height has no units. The allowed values are ½, 1½, 2½ … ℏω. They are evenly spaced, and the lowest is not zero: a quantum particle can never sit perfectly still at the bottom of the trap.</p>
   </div>
 </div></section>
 
@@ -504,23 +504,26 @@ const PAPERS=[
   return y}
  function draw(){const E=+sl.value,{c,w,h:H}=fit(cv),k=C(),y=solve(E);
   $('shootEo').textContent=E.toFixed(2)+' ℏω';
-  const X=x=>(x+L)/(2*L)*w,emax=6.4,Y=e=>H-14-e/emax*(H-28);
+  const ml=64,X=x=>ml+(x+L)/(2*L)*(w-ml),emax=6.4,Y=e=>H-14-e/emax*(H-28);
   // levels
   c.font='11px IBM Plex Mono, monospace';c.fillStyle=k.muted;c.strokeStyle=k.line;c.lineWidth=1;
-  for(let n=0;n<6;n++){c.beginPath();c.moveTo(0,Y(n+.5));c.lineTo(w,Y(n+.5));c.stroke()}
+  c.textAlign='right';for(let n=0;n<6;n++){c.beginPath();c.moveTo(ml,Y(n+.5));c.lineTo(w,Y(n+.5));c.stroke();c.fillText((n+.5).toFixed(1)+' ℏω',ml-6,Y(n+.5)+4)}
+  c.fillText('0',ml-6,Y(0)+4);c.strokeStyle=k.muted;c.beginPath();c.moveTo(ml,6);c.lineTo(ml,Y(0));c.lineTo(w,Y(0));c.stroke();
+  c.save();c.translate(12,H/2);c.rotate(-Math.PI/2);c.textAlign='center';c.fillText('energy E',0,0);c.restore();
+  c.textAlign='left';for(let n=0;n<6;n++)c.fillText('n = '+n,w-40,Y(n+.5)-4);
   // potential
   c.strokeStyle=k.muted;c.lineWidth=1.5;c.beginPath();for(let i=0;i<=200;i++){const x=-L+i*2*L/200,v=x*x/2;const yy=Y(Math.min(v,emax+1));i?c.lineTo(X(x),yy):c.moveTo(X(x),yy)}c.stroke();
   // energy
-  c.strokeStyle=k.ha;c.setLineDash([5,4]);c.beginPath();c.moveTo(0,Y(E));c.lineTo(w,Y(E));c.stroke();c.setLineDash([]);
+  c.strokeStyle=k.ha;c.setLineDash([5,4]);c.beginPath();c.moveTo(ml,Y(E));c.lineTo(w,Y(E));c.stroke();c.setLineDash([]);
   // psi, normalised on the left 60%
   let m=0;const cut=Math.round(N*.6);for(let i=0;i<=cut;i++)m=Math.max(m,Math.abs(y[i]));
-  const amp=Math.min(60,H*.2);c.save();c.beginPath();c.rect(0,0,w,H);c.clip();c.strokeStyle=k.hb;c.lineWidth=2.5;c.beginPath();
+  const amp=Math.min(60,H*.2);c.save();c.beginPath();c.rect(ml,0,w-ml,H);c.clip();c.strokeStyle=k.hb;c.lineWidth=2.5;c.beginPath();
   for(let i=0;i<=N;i+=4){const v=Math.max(-50,Math.min(50,y[i]/m)),yy=Y(E)-v*amp;i?c.lineTo(X(-L+i*h),yy):c.moveTo(X(-L+i*h),yy)}c.stroke();c.restore();
   let nodes=0;for(let i=40;i<N-40;i++)if(y[i]*y[i+1]<0&&Math.abs(-L+i*h)<Math.sqrt(2*E)+.4)nodes++;
   const ok=Math.abs(y[N]/m)<.03,v=$('shootVerdict');
   v.textContent=ok?'Allowed: the wave returns to zero.':(y[N]>0?'Not allowed: the wave runs off upward.':'Not allowed: the wave runs off downward.');
   v.className='verdict '+(ok?'good':'bad');$('shootNodes').textContent=nodes;
-  c.fillStyle=k.muted;c.fillText('position x →',w-92,H-3)}
+  c.fillStyle=k.muted;c.fillText('position x →',w-92,H-2)}
  sl.addEventListener('input',draw);statics.push(draw);
 })();
 
