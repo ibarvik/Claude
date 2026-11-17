@@ -566,18 +566,21 @@ const PAPERS=[
 (function(){
  const cv=$('wpCv'),N=640,dx=.1,dt=.01,x0g=-32,al=dt/(4*dx*dx);
  let re=new Float64Array(N),im=new Float64Array(N),V=new Float64Array(N),cr=new Float64Array(N),ci=new Float64Array(N),dr=new Float64Array(N),di=new Float64Array(N);
- let preset='barrier',t=0,Epk=8;const xs=i=>x0g+i*dx;
+ let preset='barrier',t=0,Epk=8,xc0=0;const xs=i=>x0g+i*dx;
  const NOTES={free:'No forces act. The packet travels and also spreads out, because it contains a range of momenta, and the faster parts pull ahead. This spreading is why Schrödinger\'s hope that a particle is simply a small lump of wave could not work.',
   barrier:'The barrier is taller than the particle\'s energy when the grey block rises above the red line. Classical physics then says 100 % reflection. Lower the barrier or raise the momentum and watch the transmitted share change. The run restarts before the packet reaches the edge of the picture.',
-  well:'A bowl-shaped trap. A packet of exactly the right width swings to and fro without spreading, like a pendulum. This is the special case from Schrödinger\'s July 1926 note.'};
+  well:'A bowl-shaped trap. "Non-spreading" means that the blue probability hump keeps exactly the same width and height for ever while it swings to and fro like a pendulum. Compare the free particle, whose hump gets steadily wider and lower. Only the violet real part changes its wiggles, tightest where the particle moves fastest. This is the special case from Schrödinger\'s July 1926 note. Here the page draws his exact formula, because the step-by-step solver used for the other two cases builds up small errors that would make the hump appear to breathe.'};
  function init(){const k0=+$('wpK').value,V0=+$('wpV').value;t=0;let xc=-14,sg=1.6,kk=k0;
   for(let i=0;i<N;i++){const x=xs(i);V[i]=preset==='barrier'?(x>=0&&x<=.6?V0:0):preset==='well'?.125*x*x:0}
-  if(preset==='well'){sg=1;kk=0;xc=-2.2*k0}
+  if(preset==='well'){sg=1;kk=0;xc=-2.2*k0}xc0=xc;
   let s=0;for(let i=0;i<N;i++){const x=xs(i),g=Math.exp(-(x-xc)*(x-xc)/(4*sg*sg));re[i]=g*Math.cos(kk*x);im[i]=g*Math.sin(kk*x);s+=g*g*dx}
   s=1/Math.sqrt(s);for(let i=0;i<N;i++){re[i]*=s;im[i]*=s}re[0]=im[0]=re[N-1]=im[N-1]=0;
   Epk=preset==='well'?.125*xc*xc+.25:kk*kk/2+1/(8*sg*sg);
   $('wpKo').textContent=preset==='well'?(-xc).toFixed(1)+' from centre  (energy '+Epk.toFixed(1)+')':k0.toFixed(1)+'  (energy '+Epk.toFixed(1)+')';$('wpVo').textContent=preset==='barrier'?V0.toFixed(1):'not used';
   $('wpV').disabled=preset!=='barrier';$('wpKl').textContent=preset==='well'?'Starting displacement':'Momentum';$('wpNote').textContent=NOTES[preset]}
+ function wellExact(){ // exact coherent state of the trap V = x²/8 (ω = ½): a rigid Gaussian whose centre follows the classical swing
+  const om=.5,X=xc0*Math.cos(om*t),P=-om*xc0*Math.sin(om*t),th=om*t/2+X*P/2,nn=Math.pow(om/Math.PI,.25);
+  for(let i=0;i<N;i++){const x=xs(i),g=nn*Math.exp(-om*(x-X)*(x-X)/2),ph=P*x-th;re[i]=g*Math.cos(ph);im[i]=g*Math.sin(ph)}}
  function step(){ // (1+iHdt/2)psi' = (1-iHdt/2)psi ; off-diagonal c = -i*al
   for(let i=1;i<N-1;i++){const b=dt*V[i]/2+2*al; // rhs = psi - i*b*psi + i*al*(psi[i-1]+psi[i+1])
    const sr=re[i-1]+re[i+1],si=im[i-1]+im[i+1];dr[i]=re[i]+b*im[i]-al*si;di[i]=im[i]-b*re[i]+al*sr}
@@ -602,7 +605,7 @@ const PAPERS=[
   let o='<span><b>time </b>'+t.toFixed(1)+'</span><span><b>total probability </b>'+((L+R+M)*100).toFixed(1)+' %</span>';
   if(preset==='barrier')o+='<span><b>left of barrier </b>'+(L*100).toFixed(1)+' %</span><span><b>tunnelled through </b>'+(R*100).toFixed(1)+' %</span>';
   $('wpOut').innerHTML=o}
- const A={cv,on:!reduced,step(){for(let i=0;i<4;i++)step();if(preset!=='well'&&t>40/(+$('wpK').value))init()},draw};anims.push(A);
+ const A={cv,on:!reduced,step(){if(preset==='well'){t+=4*dt;wellExact()}else{for(let i=0;i<4;i++)step();if(t>40/(+$('wpK').value))init()}},draw};anims.push(A);
  $('wpPresets').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;press($('wpPresets'),b);preset=b.dataset.p;init();draw()});
  $('wpK').addEventListener('input',()=>{init();draw()});$('wpV').addEventListener('input',()=>{init();draw()});
  $('wpReset').onclick=()=>{init();draw()};
