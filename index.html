@@ -47,7 +47,7 @@ header.hero{padding-block:48px 40px}
 .eqn button[aria-pressed="true"]{border-bottom-color:var(--ha);background:var(--panel)}
 .eqn .op{font-style:normal;color:var(--muted)}
 .term-note{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-height:6.5em}
-.term-note b{font-family:var(--mono);font-weight:500;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ha)}
+.term-note b{font-family:var(--mono);font-weight:500;font-size:.85rem;letter-spacing:.04em;color:var(--ha)}
 
 /* nav */
 nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
@@ -157,7 +157,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
   <div class="stack">
     <p class="eyebrow">1926 → 2026 · Annalen der Physik, vols. 79–81</p>
     <h1>One hundred years of the Schrödinger equation</h1>
-    <p class="prose">Between January and June 1926, a 38-year-old Austrian professor in Zurich sent four papers to one journal. Together they replaced the picture of electrons as tiny planets with a wave, written <i class="m">ψ</i>, and gave the rule for how that wave moves. Nearly all of chemistry, electronics and quantum technology is calculated from it. Tap any part of the equation to see what it says.</p>
+    <p class="prose">Between January and June 1926, a 38-year-old Austrian professor in Zurich sent a four-part series of papers to one journal. Together they replaced the picture of electrons as tiny planets with a wave, written <i class="m">ψ</i>, and gave the rule for how that wave moves. Nearly all of chemistry, electronics and quantum technology is calculated from it. Tap any part of the equation to see what it says.</p>
   </div>
   <figure class="ph portrait"><img src="images/p1933.jpg" width="520" height="718" alt="Erwin Schrödinger in round glasses, 1933"><figcaption>Erwin Schrödinger in 1933, the year of his Nobel Prize. <span>Narodowe Archiwum Cyfrowe, public domain.</span></figcaption></figure>
   </div>
@@ -182,7 +182,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
     <p class="eyebrow">The 1926 papers</p>
     <h2>Six months, six papers</h2>
     <p>In 1925 physics had a problem. Niels Bohr's model said electrons in atoms may only have certain energies, but nobody could say why. Louis de Broglie had proposed in his 1924 thesis that particles of matter also behave as waves. At a Zurich seminar late in 1925, Peter Debye reportedly remarked that if there are waves, there ought to be a wave equation. Schrödinger found it over the Christmas holidays at Arosa in the Swiss Alps.</p>
-    <p>He published it as a series titled <em>Quantisierung als Eigenwertproblem</em> ("Quantisation as an Eigenvalue Problem"), with two companion papers. Select a paper to read what it contains.</p>
+    <p>He published it as a series titled <em>Quantisierung als Eigenwertproblem</em> ("Quantisation as an Eigenvalue Problem"), with three companion papers. Select a paper to read what it contains.</p>
   </div>
   <div class="stack">
     <div class="yeartrack" id="yearTrack" aria-hidden="true"></div>
@@ -216,7 +216,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
   <div class="stack prose">
     <p class="eyebrow">First and third communications</p>
     <h2>The hydrogen atom, solved</h2>
-    <p>The first paper applied the equation to the simplest atom, one electron held by one proton. Out came Bohr's energy levels, <i class="m">E<sub>n</sub></i> = −13.6 eV / <i class="m">n</i>², with no extra assumptions. The integers <i class="m">n</i>, <i class="m">l</i> and <i class="m">m</i> appear on their own, as the numbers of nodes in the wave. These wave shapes are the orbitals of every chemistry textbook.</p>
+    <p>The first paper applied the equation to the simplest atom, one electron held by one proton. Out came Bohr's energy levels, <i class="m">E<sub>n</sub></i> = −13.6 eV / <i class="m">n</i>², with no extra assumptions. The integers <i class="m">n</i>, <i class="m">l</i> and <i class="m">m</i> are not put in by hand. They come out of the requirement that the wave be finite and single-valued, and they count its nodes. These wave shapes are the orbitals of every chemistry textbook.</p>
   </div>
   <div class="split">
     <div class="tool">
@@ -225,10 +225,10 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
       <div class="controls">
         <label class="narrow" for="orbN">n (shell)<select id="orbN"></select></label>
         <label class="narrow" for="orbL">l (shape)<select id="orbL"></select></label>
-        <label class="narrow" for="orbM">|m| (tilt)<select id="orbM"></select></label>
+        <label class="narrow" for="orbM">|m| (orientation)<select id="orbM"></select></label>
       </div>
       <div class="readout" id="orbOut"></div>
-      <p class="small">A vertical slice through the atom. Brighter means the electron is more likely to be found there. Dark rings and lines are nodes, where the wave is zero.</p>
+      <p class="small">A vertical slice through the atom. Brighter means the electron is more likely to be found there. Dark rings and lines are nodes, where the wave is zero. Faint regions are brightened so that they show, and the scale bar changes with the shell.</p>
     </div>
     <div class="tool">
       <div class="tool-head"><h3>Light from a jump</h3><span class="tag">Tool · spectrum</span></div>
@@ -238,7 +238,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
         <label class="narrow" for="specLo">down to level<select id="specLo"><option value="1">1 (Lyman)</option><option value="2" selected>2 (Balmer)</option><option value="3">3 (Paschen)</option></select></label>
       </div>
       <div class="readout" id="specOut"></div>
-      <p class="small">When the electron drops between levels, the atom emits light whose energy equals the gap. Jumps ending on level 2 give the visible Balmer lines; this page's red, blue-green and violet are those lines. In the third paper Schrödinger used perturbation theory to work out how an electric field splits them (the Stark effect), and matched the measured intensities.</p>
+      <p class="small">When the electron drops between levels, the atom emits light whose energy equals the gap. Jumps ending on level 2 give the visible Balmer lines; this page's red, blue-green and violet are those lines. In the third paper Schrödinger used perturbation theory to work out how an electric field splits them (the Stark effect), and his calculated line strengths agreed reasonably well with the measurements.</p>
     </div>
   </div>
 </div></section>
@@ -248,7 +248,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
     <p class="eyebrow">Fourth communication · June 1926</p>
     <h2>Waves in motion</h2>
     <p>The first three papers dealt with waves of fixed energy. The fourth gave the full law of motion, the equation at the top of this page, and with it the imaginary number <i class="m">i</i>. Schrödinger disliked a complex wave at first, but it is unavoidable: the real and imaginary parts chase each other, and that is what makes the wave travel.</p>
-    <p>Below, the equation is solved live in your browser. Send a particle at a wall it does not have enough energy to climb. Part of the wave leaks through anyway. This is tunnelling, the effect behind radioactive decay, flash memory and the scanning tunnelling microscope.</p>
+    <p>Below, the equation is solved live in your browser. Send a particle at a wall it does not have enough energy to climb. Part of the wave leaks through anyway. This is tunnelling, the effect behind alpha radioactivity, nuclear fusion in the Sun, flash memory and the scanning tunnelling microscope.</p>
   </div>
   <div class="tool">
     <div class="tool-head"><h3>Wave-packet laboratory</h3><span class="tag">Tool · live solver</span></div>
@@ -260,7 +260,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
       <button type="button" class="btn" data-p="well" aria-pressed="false">Trap (1926 "non-spreading" packet)</button>
     </div>
     <div class="controls">
-      <label for="wpK">Momentum <output id="wpKo"></output><input type="range" id="wpK" min="1.5" max="6" step="0.1" value="4"></label>
+      <label for="wpK"><span id="wpKl">Momentum</span> <output id="wpKo"></output><input type="range" id="wpK" min="1.5" max="6" step="0.1" value="4"></label>
       <label for="wpV">Barrier height <output id="wpVo"></output><input type="range" id="wpV" min="0" max="24" step="0.5" value="10"></label>
       <div class="btnrow"><button type="button" class="btn primary" id="wpPlay">Pause</button><button type="button" class="btn" id="wpReset">Restart</button></div>
     </div>
@@ -314,7 +314,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
           <span>alive</span><div class="bar"><div id="tallyA" style="background:var(--ink)"></div></div><span class="n" id="tallyAn">0</span>
           <span>dead</span><div class="bar"><div id="tallyD" style="background:var(--ha)"></div></div><span class="n" id="tallyDn">0</span>
         </div>
-        <p class="small">Each opened box shows one definite cat. Only the statistics over many boxes reveal the probabilities the equation predicted. The original set-up uses one hour, giving exactly 50 : 50.</p>
+        <p class="small">Each opened box shows one definite cat. Only the statistics over many boxes reveal the probabilities the equation predicted. The original set-up uses one hour, giving exactly 50 : 50. Note what this tool cannot show: counting opened boxes looks the same whether the cat was in a superposition or was simply alive or dead all along without our knowing. Telling those apart takes an interference experiment, which is what the laboratory "cat states" below achieve.</p>
       </div>
     </div>
   </div>
@@ -336,14 +336,14 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
     <p class="eyebrow">Proc. Cambridge Philosophical Society · 1935</p>
     <h2>Entanglement</h2>
     <p>In the same year Schrödinger named the feature he thought set quantum theory apart: <em>Verschränkung</em>, entanglement. Two particles that have interacted share a single wave function, so their measurement results stay linked however far apart they travel. He called it not one but <em>the</em> characteristic trait of quantum mechanics.</p>
-    <p>In 1964 John Bell showed how to test this. If each particle secretly carried its answers in advance, a certain combination of correlations, <i class="m">S</i>, could never exceed 2. Quantum mechanics allows up to 2.83. Run the test yourself.</p>
+    <p>In 1964 John Bell showed how to test this. In the version used in laboratories, worked out by Clauser, Horne, Shimony and Holt in 1969, each side switches between two detector settings. If each particle secretly carried its answers in advance, a certain combination of the four correlations, <i class="m">S</i>, could never exceed 2. Quantum mechanics allows up to 2√2 ≈ 2.83. Run the test yourself.</p>
   </div>
   <div class="tool">
     <div class="tool-head"><h3>Bell test</h3><span class="tag">Tool · simulated pairs</span></div>
     <div class="split">
       <div class="stack">
         <canvas id="bellCv" height="250" style="height:250px" aria-label="Correlation versus angle between detectors"></canvas>
-        <div class="legend"><span style="--c:var(--hb)">quantum prediction</span><span style="--c:var(--muted)">best "pre-agreed answers" model</span><span style="--c:var(--ha)">your measured points</span></div>
+        <div class="legend"><span style="--c:var(--hb)">quantum prediction</span><span style="--c:var(--muted)">a simple "pre-agreed answers" model</span><span style="--c:var(--ha)">your measured points</span></div>
       </div>
       <div class="stack">
         <div class="controls">
@@ -352,11 +352,11 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
           <label for="bB1">Bob, setting 1 <output id="bB1o"></output><input type="range" id="bB1" min="0" max="180" step="1" value="45"></label>
           <label for="bB2">Bob, setting 2 <output id="bB2o"></output><input type="range" id="bB2" min="0" max="180" step="1" value="135"></label>
         </div>
-        <div class="btnrow"><button type="button" class="btn primary" id="bellRun">Measure 2,000 pairs</button><button type="button" class="btn" id="bellBest">Best angles</button></div>
+        <div class="btnrow"><button type="button" class="btn primary" id="bellRun">Measure 10,000 pairs</button><button type="button" class="btn" id="bellBest">Best angles</button></div>
         <div class="readout" id="bellOut" aria-live="polite"></div>
       </div>
     </div>
-    <p class="small">Each detector measures spin along the chosen angle and reports +1 or −1. The simulation draws results from the quantum rule for an entangled pair, so numbers vary slightly from run to run, as in a real laboratory. Experiments of this kind earned the 2022 Nobel Prize in Physics.</p>
+    <p class="small">Each detector measures spin along the chosen angle and reports +1 or −1. The simulation draws results from the quantum rule for an entangled pair, so numbers vary slightly from run to run, as in a real laboratory, and a lucky run can land a little above 2.83. The plotted value is the product of the two results averaged over many pairs: −1 means always opposite, +1 always the same. Experiments of this kind earned the 2022 Nobel Prize in Physics.</p>
   </div>
 </div></section>
 
@@ -364,14 +364,14 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
   <div class="stack prose"><p class="eyebrow">Beyond the equation</p><h2>What else he did</h2>
   <p>Schrödinger published on almost every part of physics, and on biology and philosophy as well.</p></div>
   <div class="grid2">
-    <div><h3>Colour</h3><p>In 1920 he built a geometric theory of colour vision, defining distances between colours in a curved space. Colour scientists still cite it.</p></div>
+    <div><h3>Colour</h3><p>In 1920 he built a geometric theory of colour vision, building on Helmholtz, in which the difference between two colours is a distance in a curved space. Colour scientists still cite it.</p></div>
     <div><h3>A relativistic equation, abandoned</h3><p>He first derived a relativistic wave equation in late 1925, but it gave the wrong fine structure for hydrogen, so he published the simpler version. The discarded one is now the Klein–Gordon equation.</p></div>
     <div><h3>Coherent states</h3><p>His July 1926 note found wave packets in an oscillator that swing without spreading. They became the standard description of laser light. You can watch one in the "Trap" preset above.</p></div>
     <div><h3>Equivalence of two theories</h3><p>In March 1926 he showed that his wave mechanics and Heisenberg's matrix mechanics, which looked nothing alike, always give the same numbers.</p></div>
     <div><h3>Zitterbewegung</h3><p>In 1930 he noticed that Dirac's equation makes a free electron appear to tremble at enormous frequency, an effect still studied in analogue systems.</p></div>
     <div><h3>Particles from expanding space</h3><p>A 1939 paper showed that an expanding universe can create pairs of particles out of the vacuum, an idea central to modern cosmology.</p></div>
     <div><h3>Factorisation method</h3><p>In Dublin in 1940 he found a way to solve the equation by splitting it into ladder operators. It grew into supersymmetric quantum mechanics.</p></div>
-    <div><h3>What Is Life?</h3><p>His 1943 Dublin lectures, published in 1944, argued that heredity must be stored in an "aperiodic crystal" carrying a code. Francis Crick and James Watson both said the book drew them to the problem of DNA.</p></div>
+    <div><h3>What Is Life?</h3><p>His 1943 Dublin lectures, published in 1944, argued that heredity must be stored in an "aperiodic crystal" carrying a code. Francis Crick, James Watson and Maurice Wilkins all said the book helped draw them to the problem of the gene.</p></div>
     <div><h3>Philosophy</h3><p>He wrote on the Greeks, on mind and matter, and was a lifelong reader of Vedanta, from which he took the idea that consciousness is one.</p></div>
   </div>
   <div class="stack prose">
@@ -398,11 +398,11 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
     <div><h3>At odds with his own theory</h3><p>Schrödinger wanted real waves, not probabilities and sudden jumps. Visiting Copenhagen in autumn 1926 he argued with Bohr until he fell ill; Heisenberg later recalled him saying that if those "damned quantum jumps" were here to stay, he was sorry he had ever got involved. He spent decades criticising the standard interpretation, alongside Einstein.</p></div>
     <div><h3>The 1938 letter</h3><p>After Germany annexed Austria, Schrödinger, known as an opponent of the Nazis, published a letter in a Graz newspaper declaring loyalty to the new regime. It did not save his post. He was dismissed, fled, and later told Einstein he regretted the letter.</p></div>
     <div><h3>The 1947 "unified theory"</h3><p>In Dublin he announced to the Royal Irish Academy, with the press present, that he had the unified field theory Einstein had sought for thirty years. Einstein answered dismissively in public, the theory led nowhere, and the two friends stopped writing to each other for about three years.</p></div>
-    <div><h3>Household and affairs</h3><p>He and his wife Annemarie had an open marriage. His daughter Ruth was born in 1934 to Hilde March, the wife of a colleague, and for years Hilde lived with the couple. The arrangement cost him goodwill at Oxford and Princeton. He had further children from relationships in Ireland.</p></div>
+    <div><h3>Household and affairs</h3><p>He and his wife Annemarie had an open marriage. His daughter Ruth was born in 1934 to Hilde March, the wife of a colleague, and for years Hilde lived with the couple. His biographer suggests the arrangement cost him goodwill at Oxford and Princeton. He had further children from relationships in Ireland.</p></div>
   </div>
   <div class="note prose stack">
     <h3>Abuse of girls</h3>
-    <p>His diaries and Walter Moore's 1989 biography record that he pursued girls in their early teens. He tutored Itha ("Ithi") Junger when she was fourteen; the biography reports that a sexual relationship followed, a pregnancy when she was seventeen, and an abortion that left her unable to have children. In Dublin he wrote of his infatuation with a twelve-year-old.</p>
+    <p>His diaries and Walter Moore's 1989 biography record that he pursued girls in their early teens. He tutored Itha ("Ithi") Junger when she was fourteen; the biography reports that he pursued her from then on, that they became lovers when she was seventeen, and that a later pregnancy ended in an abortion which left her unable to have children. In Dublin he wrote of his infatuation with a twelve-year-old.</p>
     <p>Reporting by <em>The Irish Times</em> in December 2021 brought this to wide attention. In 2022 the School of Physics at Trinity College Dublin decided to drop his name from its lecture theatre. Institutions and physicists continue to debate how to honour the work while being honest about the man.</p>
   </div>
 </div></section>
@@ -478,8 +478,8 @@ const PAPERS=[
   txt:'The time-dependent equation, the form celebrated today. ψ becomes necessarily complex. He treats atoms in a light wave (dispersion), shows that ψψ* obeys a conservation law, and interprets it as a density of electric charge.'},
  {tab:'Packet · Jul',day:190,title:'The continuous transition from micro- to macro-mechanics',recv:'published 9 July 1926',cite:'Die Naturwissenschaften 14, 664–666',f:'ψ = Σ cₙ ψₙ e^(−iEₙt/ℏ)',
   txt:'A short note showing that many oscillator states added together form a compact packet that swings back and forth like a classical particle without spreading. He hoped all particles were such packets. That fails in general, as the free-particle preset in the wave-packet laboratory shows, but these "coherent states" turned out to describe laser light.'},
- {tab:'English · Dec',day:335,title:'An undulatory theory of the mechanics of atoms and molecules',recv:'published December 1926',cite:'Physical Review 28, 1049–1070',f:'ψ  ↔  "mechanical field scalar"',
-  txt:'A summary of the whole theory for English-speaking readers, written at the request of American physicists. It carried wave mechanics across the Atlantic within the year.'}];
+ {tab:'English · Dec',day:335,title:'An undulatory theory of the mechanics of atoms and molecules',recv:'published December 1926',cite:'Physical Review 28, 1049–1070',f:'∇²ψ + (8π²m/h²)(E − V) ψ = 0',
+  txt:'A summary of the whole theory in English, written in his own notation with h instead of ℏ. It appeared just as he left for a lecture tour of the United States, and carried wave mechanics across the Atlantic within the year.'}];
 (function(){
  const tr=$('yearTrack'),tabs=$('paperTabs');
  ['Jan','Mar','May','Jul','Sep','Nov'].forEach((m,i)=>{const s=document.createElement('span');s.textContent=m;s.style.left=(4+(i*2/12)*92+3.8)+'%';tr.appendChild(s)});
@@ -541,7 +541,7 @@ const PAPERS=[
   // scale bar
   const bar=Math.pow(10,Math.floor(Math.log10(ext/2))),px=bar/(2*ext)*w;c.strokeStyle=k.ink;c.fillStyle=k.ink;c.lineWidth=2;c.beginPath();c.moveTo(12,h-14);c.lineTo(12+px,h-14);c.stroke();
   c.font='11px IBM Plex Mono, monospace';c.fillText((bar*0.0529).toFixed(bar<10?3:2)+' nm',12,h-20);
-  $('orbOut').innerHTML='<span><b>orbital </b>'+n+letters[l]+'</span><span><b>energy </b>'+(-13.606/(n*n)).toFixed(2)+' eV</span><span><b>ring nodes </b>'+(n-l-1)+'</span><span><b>angular nodes </b>'+l+'</span><span><b>states in shell </b>'+n*n+'</span>'}
+  $('orbOut').innerHTML='<span><b>orbital </b>'+n+letters[l]+'</span><span><b>energy </b>'+(-13.606/(n*n)).toFixed(2)+' eV</span><span><b>ring nodes </b>'+(n-l-1)+'</span><span><b>angular nodes </b>'+l+'</span><span><b>orbitals in shell </b>'+n*n+' ('+2*n*n+' electrons with spin)</span>'}
  sn.onchange=()=>{fill();draw()};sl.onchange=()=>{fillM();draw()};sm.onchange=draw;fill();statics.push(draw);
 })();
 
@@ -558,7 +558,7 @@ const PAPERS=[
   c.fillStyle=k.muted;c.font='11px IBM Plex Mono, monospace';[400,500,600,700].forEach(v=>{c.fillText(v+' nm',X(v)-18,h-8)});
   const wl=lam(a,b),ev=1239.842/wl;if(wl>=380&&wl<=750){c.strokeStyle=k.ink;c.lineWidth=1.5;c.strokeRect(X(wl)-6,top-3,12,bot-top+6)}
   const region=wl<380?'ultraviolet, invisible':wl>750?'infrared, invisible':'visible';
-  $('specOut').innerHTML='<span><b>wavelength </b>'+wl.toFixed(1)+' nm</span><span><b>photon energy </b>'+ev.toFixed(2)+' eV</span><span><b>region </b>'+region+'</span>'}
+  $('specOut').innerHTML='<span><b>wavelength (in vacuum) </b>'+wl.toFixed(1)+' nm</span><span><b>photon energy </b>'+ev.toFixed(2)+' eV</span><span><b>region </b>'+region+'</span>'}
  lo.onchange=()=>{fillHi();draw()};hi.onchange=draw;fillHi();hi.value=3;statics.push(draw);
 })();
 
@@ -567,8 +567,8 @@ const PAPERS=[
  const cv=$('wpCv'),N=640,dx=.1,dt=.01,x0g=-32,al=dt/(4*dx*dx);
  let re=new Float64Array(N),im=new Float64Array(N),V=new Float64Array(N),cr=new Float64Array(N),ci=new Float64Array(N),dr=new Float64Array(N),di=new Float64Array(N);
  let preset='barrier',t=0,Epk=8;const xs=i=>x0g+i*dx;
- const NOTES={free:'No forces act. The packet travels and also spreads out, because it contains a range of speeds. This spreading is why Schrödinger\'s hope that a particle is simply a small lump of wave could not work.',
-  barrier:'The barrier is taller than the particle\'s energy when the grey block rises above the red line. Classical physics then says 100 % reflection. Lower the barrier or raise the momentum and watch the transmitted share change.',
+ const NOTES={free:'No forces act. The packet travels and also spreads out, because it contains a range of momenta, and the faster parts pull ahead. This spreading is why Schrödinger\'s hope that a particle is simply a small lump of wave could not work.',
+  barrier:'The barrier is taller than the particle\'s energy when the grey block rises above the red line. Classical physics then says 100 % reflection. Lower the barrier or raise the momentum and watch the transmitted share change. The run restarts before the packet reaches the edge of the picture.',
   well:'A bowl-shaped trap. A packet of exactly the right width swings to and fro without spreading, like a pendulum. This is the special case from Schrödinger\'s July 1926 note.'};
  function init(){const k0=+$('wpK').value,V0=+$('wpV').value;t=0;let xc=-14,sg=1.6,kk=k0;
   for(let i=0;i<N;i++){const x=xs(i);V[i]=preset==='barrier'?(x>=0&&x<=.6?V0:0):preset==='well'?.125*x*x:0}
@@ -576,8 +576,8 @@ const PAPERS=[
   let s=0;for(let i=0;i<N;i++){const x=xs(i),g=Math.exp(-(x-xc)*(x-xc)/(4*sg*sg));re[i]=g*Math.cos(kk*x);im[i]=g*Math.sin(kk*x);s+=g*g*dx}
   s=1/Math.sqrt(s);for(let i=0;i<N;i++){re[i]*=s;im[i]*=s}re[0]=im[0]=re[N-1]=im[N-1]=0;
   Epk=preset==='well'?.125*xc*xc+.25:kk*kk/2+1/(8*sg*sg);
-  $('wpKo').textContent=preset==='well'?'start '+(-xc).toFixed(1)+' from centre':k0.toFixed(1)+'  (energy '+Epk.toFixed(1)+')';$('wpVo').textContent=preset==='barrier'?V0.toFixed(1):'not used';
-  $('wpV').disabled=preset!=='barrier';$('wpNote').textContent=NOTES[preset]}
+  $('wpKo').textContent=preset==='well'?(-xc).toFixed(1)+' from centre  (energy '+Epk.toFixed(1)+')':k0.toFixed(1)+'  (energy '+Epk.toFixed(1)+')';$('wpVo').textContent=preset==='barrier'?V0.toFixed(1):'not used';
+  $('wpV').disabled=preset!=='barrier';$('wpKl').textContent=preset==='well'?'Starting displacement':'Momentum';$('wpNote').textContent=NOTES[preset]}
  function step(){ // (1+iHdt/2)psi' = (1-iHdt/2)psi ; off-diagonal c = -i*al
   for(let i=1;i<N-1;i++){const b=dt*V[i]/2+2*al; // rhs = psi - i*b*psi + i*al*(psi[i-1]+psi[i+1])
    const sr=re[i-1]+re[i+1],si=im[i-1]+im[i+1];dr[i]=re[i]+b*im[i]-al*si;di[i]=im[i]-b*re[i]+al*sr}
@@ -602,7 +602,7 @@ const PAPERS=[
   let o='<span><b>time </b>'+t.toFixed(1)+'</span><span><b>total probability </b>'+((L+R+M)*100).toFixed(1)+' %</span>';
   if(preset==='barrier')o+='<span><b>left of barrier </b>'+(L*100).toFixed(1)+' %</span><span><b>tunnelled through </b>'+(R*100).toFixed(1)+' %</span>';
   $('wpOut').innerHTML=o}
- const A={cv,on:!reduced,step(){for(let i=0;i<4;i++)step();if(preset!=='well'&&t>16)init()},draw};anims.push(A);
+ const A={cv,on:!reduced,step(){for(let i=0;i<4;i++)step();if(preset!=='well'&&t>40/(+$('wpK').value))init()},draw};anims.push(A);
  $('wpPresets').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;press($('wpPresets'),b);preset=b.dataset.p;init();draw()});
  $('wpK').addEventListener('input',()=>{init();draw()});$('wpV').addEventListener('input',()=>{init();draw()});
  $('wpReset').onclick=()=>{init();draw()};
@@ -667,7 +667,7 @@ const PAPERS=[
   c.strokeStyle=k.hb;c.lineWidth=2.5;c.beginPath();for(let d=0;d<=180;d+=2){const y=Y(-Math.cos(d*Math.PI/180));d?c.lineTo(X(d),y):c.moveTo(X(d),y)}c.stroke();
   c.fillStyle=k.ha;pts.forEach(p=>{c.beginPath();c.arc(X(p[0]),Y(p[1]),5,0,7);c.fill()});
   c.fillStyle=k.muted;c.fillText('angle between the two detectors',l+4,tp+10)}
- function run(){const [a1,a2,b1,b2]=ang(),E=(a,b)=>{let d=Math.abs(a-b);const same=(1-Math.cos(d*Math.PI/180))/2;let s=0;for(let i=0;i<500;i++)s+=Math.random()<same?1:-1;pts.push([d,s/500]);return s/500};
+ function run(){const [a1,a2,b1,b2]=ang(),E=(a,b)=>{let d=Math.abs(a-b);const same=(1-Math.cos(d*Math.PI/180))/2;let s=0;for(let i=0;i<2500;i++)s+=Math.random()<same?1:-1;pts.push([d,s/2500]);return s/2500};
   pts=[];const S=E(a1,b1)-E(a1,b2)+E(a2,b1)+E(a2,b2),A=Math.abs(S);
   $('bellOut').innerHTML='<span><b>|S| measured </b>'+A.toFixed(2)+'</span><span><b>classical limit </b>2.00</span><span><b>quantum maximum </b>2.83</span><span class="verdict '+(A>2?'good':'bad')+'">'+(A>2?'Limit broken: no set of pre-agreed answers can produce this.':'Within the classical limit at these angles. Try "Best angles".')+'</span>';draw()}
  ids.forEach(i=>$(i).addEventListener('input',()=>{pts=[];draw()}));
@@ -678,16 +678,16 @@ const PAPERS=[
 /* ---------- timeline ---------- */
 (function(){
  const T=[
- ['1887','life','Born 12 August in Vienna, the only child of Rudolf Schrödinger, a factory owner and amateur botanist, and Georgine Bauer. Taught at home until he was ten.'],
+ ['1887','life','Born 12 August in Vienna, the only child of Rudolf Schrödinger, a factory owner and amateur botanist, and Georgine Bauer. Taught at home until he entered the Akademisches Gymnasium in 1898.'],
  ['1906','sci','Enters the University of Vienna. Studies under Friedrich Hasenöhrl, Boltzmann\'s successor, and Franz Exner. Doctorate in 1910.'],
  ['1914','pol','Serves as an artillery officer in the Austro-Hungarian army through the First World War, reading physics papers at the front.'],
  ['1920','life','Marries Annemarie Bertel. Short posts in Jena, Stuttgart and Breslau. Publishes his theory of colour.'],
- ['1921','sci','Professor of theoretical physics at the University of Zurich. Falls ill with tuberculosis and recovers at Arosa, where he will return at Christmas 1925.'],
- ['1926','sci','Publishes wave mechanics in six papers. Lectures across the United States at the end of the year.'],
+ ['1921','sci','Professor of theoretical physics at the University of Zurich. Falls ill with suspected tuberculosis and spends most of 1922 recovering at Arosa, where he will return at Christmas 1925.'],
+ ['1926','sci','Publishes wave mechanics. In December he sails for a lecture tour of the United States that lasts into spring 1927.'],
  ['1927','sci','Succeeds Max Planck in the chair of theoretical physics in Berlin, then the capital of world physics. Attends the fifth Solvay Conference.'],
- ['1933','pol','Leaves Germany when Hitler takes power, though not himself under threat. Becomes a fellow of Magdalen College, Oxford, and weeks later shares the Nobel Prize in Physics with Paul Dirac.'],
- ['1934','life','Daughter Ruth is born in Oxford to Hilde March. Declines a permanent post at Princeton.'],
- ['1935','sci','Writes the cat paper and coins "entanglement" while corresponding with Einstein.'],
+ ['1933','pol','Leaves Germany when Hitler takes power, though not himself under threat. Becomes a fellow of Magdalen College, Oxford, and within days learns he will share the Nobel Prize in Physics with Paul Dirac, "for the discovery of new productive forms of atomic theory".'],
+ ['1934','life','Daughter Ruth is born in Oxford to Hilde March. Lectures at Princeton, but a permanent post there does not come about.'],
+ ['1935','sci','Writes the cat paper and coins the word "entanglement" (German: Verschränkung) while corresponding with Einstein.'],
  ['1936','pol','Accepts a chair at Graz, returning to Austria against friends\' advice.'],
  ['1938','pol','Germany annexes Austria. Publishes a letter of loyalty to the regime, is dismissed anyway, and escapes with his wife via Italy.'],
  ['1939','pol','Arrives in Dublin at the invitation of the Irish leader Éamon de Valera, a former mathematics teacher, and becomes the first director of theoretical physics at the new Dublin Institute for Advanced Studies in 1940.'],
@@ -735,6 +735,7 @@ const PAPERS=[
  ['J. D. Trimmer, "The Present Situation in Quantum Mechanics: A Translation of Schrödinger\'s \'Cat Paradox\' Paper," Proc. Am. Philos. Soc. 124, 323–338 (1980). No DOI.',null],
  ['E. Schrödinger, "Discussion of Probability Relations between Separated Systems," Proc. Camb. Philos. Soc. 31, 555–563 (1935).','10.1017/S0305004100013554'],
  ['J. S. Bell, "On the Einstein Podolsky Rosen paradox," Physics Physique Fizika 1, 195–200 (1964).','10.1103/PhysicsPhysiqueFizika.1.195'],
+ ['J. F. Clauser, M. A. Horne, A. Shimony and R. A. Holt, "Proposed Experiment to Test Local Hidden-Variable Theories," Phys. Rev. Lett. 23, 880–884 (1969).','10.1103/PhysRevLett.23.880'],
  ['E. Joos and H. D. Zeh, "The emergence of classical properties through interaction with the environment," Z. Phys. B 59, 223–243 (1985).','10.1007/BF01725541'],
  ['W. H. Zurek, "Decoherence, einselection, and the quantum origins of the classical," Rev. Mod. Phys. 75, 715–775 (2003).','10.1103/RevModPhys.75.715'],
  ['C. Monroe et al., "A \'Schrödinger Cat\' Superposition State of an Atom," Science 272, 1131–1136 (1996).','10.1126/science.272.5265.1131'],
