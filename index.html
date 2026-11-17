@@ -232,6 +232,8 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
     </div>
     <div class="tool">
       <div class="tool-head"><h3>Light from a jump</h3><span class="tag">Tool · spectrum</span></div>
+      <svg id="specDg" viewBox="0 0 520 300" role="img" aria-label="Energy levels of hydrogen with the jumps of the Lyman, Balmer and Paschen series" style="display:block;width:100%;height:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px"></svg>
+      <p class="small">Each horizontal line is an allowed energy; each arrow is a jump down that emits light. Tap an arrow to choose it. The spacing is schematic: the real levels crowd together even more toward the top.</p>
       <canvas id="specCv" height="120" style="height:120px" aria-label="Visible spectrum with hydrogen emission lines"></canvas>
       <div class="controls">
         <label class="narrow" for="specHi">from level<select id="specHi"></select></label>
@@ -551,12 +553,25 @@ const PAPERS=[
  function rgb(wl){let r=0,g=0,b=0;if(wl<380||wl>750)return[0,0,0];if(wl<440){r=-(wl-440)/60;b=1}else if(wl<490){g=(wl-440)/50;b=1}else if(wl<510){g=1;b=-(wl-510)/20}else if(wl<580){r=(wl-510)/70;g=1}else if(wl<645){r=1;g=-(wl-645)/65}else r=1;
   const f=wl<420?.3+.7*(wl-380)/40:wl>700?.3+.7*(750-wl)/50:1;return[r,g,b].map(v=>Math.round(255*Math.pow(v*f,.8)))}
  const lam=(a,b)=>1e9/(RH*(1/(b*b)-1/(a*a)));
+ const NS='http://www.w3.org/2000/svg',dg=$('specDg'),Yl=n=>292-262*(1-1/Math.pow(n,.8)),arrows=[],heads=[];
+ function mk(par,t,at,txt){const e=document.createElementNS(NS,t);for(const q in at)e.setAttribute(q,at[q]);if(txt!=null)e.textContent=txt;par.appendChild(e);return e}
+ const mono={'font-size':11,'font-family':'IBM Plex Mono, monospace',fill:'var(--muted)'};
+ for(let n=1;n<=9;n++){mk(dg,'line',{x1:70,x2:508,y1:Yl(n),y2:Yl(n),stroke:'var(--muted)','stroke-width':1,opacity:n<6?.7:.4});if(n<=5)mk(dg,'text',Object.assign({x:62,y:Yl(n)+4,'text-anchor':'end'},mono),'n = '+n)}
+ mk(dg,'text',Object.assign({x:62,y:Yl(7)+3,'text-anchor':'end'},mono),'6 to 9');
+ ['Lyman · ultraviolet','Balmer · visible','Paschen · infrared'].forEach((nm,i)=>heads.push(mk(dg,'text',{x:140+i*140,y:16,'text-anchor':'middle','font-size':12.5,'font-weight':600,'font-family':'IBM Plex Sans, sans-serif',fill:'var(--ink)'},nm)));
+ const selLab=mk(dg,'text',{x:0,y:36,'text-anchor':'middle','font-size':12,'font-family':'IBM Plex Mono, monospace',fill:'var(--ink)'},'');
+ for(let b=1;b<=3;b++)for(let j=0;j<6;j++){const n=b+1+j,x=90+(b-1)*140+j*20,col=b===2?'rgb('+rgb(lam(n,2))+')':b===1?'var(--hg)':'var(--ha)',g=mk(dg,'g',{});g.style.cursor='pointer';
+  const ln=mk(g,'line',{x1:x,x2:x,y1:Yl(n),y2:Yl(b)-7,stroke:col,'stroke-width':1.5});mk(g,'polygon',{points:(x-4.5)+','+(Yl(b)-8)+' '+(x+4.5)+','+(Yl(b)-8)+' '+x+','+Yl(b),fill:col});
+  mk(g,'line',{x1:x,x2:x,y1:Yl(n)-4,y2:Yl(b),stroke:'transparent','stroke-width':18});mk(g,'title',{},n+' → '+b+': '+lam(n,b).toFixed(1)+' nm');
+  g.addEventListener('click',()=>{lo.value=b;fillHi();hi.value=n;draw()});arrows.push({g,ln,n,b})}
  function fillHi(){const l=+lo.value,cur=+hi.value||l+1;hi.length=0;for(let n=l+1;n<=l+6;n++)hi.add(new Option(n,n));hi.value=Math.max(l+1,Math.min(l+6,cur))}
  function draw(){const a=+hi.value,b=+lo.value,{c,w,h}=fit(cv),k=C(),X=wl=>(wl-380)/370*w,top=8,bot=h-26;
   for(let x=0;x<w;x++){const q=rgb(380+x/w*370);c.fillStyle='rgba('+q+',.22)';c.fillRect(x,top,1.5,bot-top)}
   for(let n=b+1;n<=b+8;n++){const wl=lam(n,b);if(wl<380||wl>750)continue;c.fillStyle='rgb('+rgb(wl)+')';c.fillRect(X(wl)-(n===a?2.5:1.2),top,n===a?5:2.4,bot-top)}
   c.fillStyle=k.muted;c.font='11px IBM Plex Mono, monospace';[400,500,600,700].forEach(v=>{c.fillText(v+' nm',X(v)-18,h-8)});
   const wl=lam(a,b),ev=1239.842/wl;if(wl>=380&&wl<=750){c.strokeStyle=k.ink;c.lineWidth=1.5;c.strokeRect(X(wl)-6,top-3,12,bot-top+6)}
+  arrows.forEach(o=>{const on=o.n===a&&o.b===b;o.g.style.opacity=on?1:o.b===b?.6:.4;o.ln.setAttribute('stroke-width',on?3.5:1.5)});heads.forEach((h,i)=>h.setAttribute('opacity',i===b-1?1:.5));
+  selLab.setAttribute('x',140+(b-1)*140);selLab.textContent=a+' → '+b+':  '+wl.toFixed(wl<1000?1:0)+' nm';
   const region=wl<380?'ultraviolet, invisible':wl>750?'infrared, invisible':'visible';
   if(b!==2){c.fillStyle=k.ink;c.font='500 12px IBM Plex Sans, sans-serif';c.textAlign=b===1?'left':'right';c.fillText(b===1?'← Lyman lines: ultraviolet, off this strip':'Paschen lines: infrared, off this strip →',b===1?10:w-10,(top+bot)/2+4);c.textAlign='left'}
   $('specOut').innerHTML='<span><b>wavelength (in vacuum) </b>'+wl.toFixed(1)+' nm</span><span><b>photon energy </b>'+ev.toFixed(2)+' eV</span><span><b>series </b>'+['Lyman','Balmer','Paschen'][b-1]+'</span><span><b>region </b>'+region+'</span>'}
