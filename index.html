@@ -238,7 +238,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
         <label class="narrow" for="specLo">down to level<select id="specLo"><option value="1">1 (Lyman)</option><option value="2" selected>2 (Balmer)</option><option value="3">3 (Paschen)</option></select></label>
       </div>
       <div class="readout" id="specOut"></div>
-      <p class="small">When the electron drops between levels, the atom emits light whose energy equals the gap. Jumps ending on level 2 give the visible Balmer lines; this page's red, blue-green and violet are those lines. In the third paper Schrödinger used perturbation theory to work out how an electric field splits them (the Stark effect), and his calculated line strengths agreed reasonably well with the measurements.</p>
+      <p class="small">When the electron drops between levels, the atom emits light whose energy equals the gap. The lines are grouped into series by the level where the jump ends, each named after the person who found it. Jumps ending on level 2 give the Balmer series (1885), the only one with visible lines; this page's red, blue-green and violet are those lines. Jumps ending on level 1 are much bigger drops, so the Lyman series (1906) lies entirely in the ultraviolet, from 121.6 nm down to 91.2 nm. Jumps ending on level 3 are smaller drops, so the Paschen series (1908) lies entirely in the infrared, from 1875 nm down to 820 nm. The strip above shows only the visible range, so for Lyman and Paschen no line appears on it and the readout gives the wavelength instead. In the third paper Schrödinger used perturbation theory to work out how an electric field splits them (the Stark effect), and his calculated line strengths agreed reasonably well with the measurements.</p>
     </div>
   </div>
 </div></section>
@@ -558,7 +558,8 @@ const PAPERS=[
   c.fillStyle=k.muted;c.font='11px IBM Plex Mono, monospace';[400,500,600,700].forEach(v=>{c.fillText(v+' nm',X(v)-18,h-8)});
   const wl=lam(a,b),ev=1239.842/wl;if(wl>=380&&wl<=750){c.strokeStyle=k.ink;c.lineWidth=1.5;c.strokeRect(X(wl)-6,top-3,12,bot-top+6)}
   const region=wl<380?'ultraviolet, invisible':wl>750?'infrared, invisible':'visible';
-  $('specOut').innerHTML='<span><b>wavelength (in vacuum) </b>'+wl.toFixed(1)+' nm</span><span><b>photon energy </b>'+ev.toFixed(2)+' eV</span><span><b>region </b>'+region+'</span>'}
+  if(b!==2){c.fillStyle=k.ink;c.font='500 12px IBM Plex Sans, sans-serif';c.textAlign=b===1?'left':'right';c.fillText(b===1?'← Lyman lines: ultraviolet, off this strip':'Paschen lines: infrared, off this strip →',b===1?10:w-10,(top+bot)/2+4);c.textAlign='left'}
+  $('specOut').innerHTML='<span><b>wavelength (in vacuum) </b>'+wl.toFixed(1)+' nm</span><span><b>photon energy </b>'+ev.toFixed(2)+' eV</span><span><b>series </b>'+['Lyman','Balmer','Paschen'][b-1]+'</span><span><b>region </b>'+region+'</span>'}
  lo.onchange=()=>{fillHi();draw()};hi.onchange=draw;fillHi();hi.value=3;statics.push(draw);
 })();
 
