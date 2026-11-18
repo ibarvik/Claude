@@ -264,7 +264,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
     <div class="controls">
       <label for="wpK"><span id="wpKl">Momentum</span> <output id="wpKo"></output><input type="range" id="wpK" min="1.5" max="6" step="0.1" value="4"></label>
       <label for="wpV">Barrier height <output id="wpVo"></output><input type="range" id="wpV" min="0" max="24" step="0.5" value="10"></label>
-      <div class="btnrow"><button type="button" class="btn primary" id="wpPlay">Pause</button><button type="button" class="btn" id="wpReset">Restart</button></div>
+      <div class="btnrow"><button type="button" class="btn primary" id="wpPlay">Pause</button><button type="button" class="btn" id="wpReset">Restart</button><button type="button" class="btn" id="wpMag" aria-pressed="false">Magnify far side ×25</button></div>
     </div>
     <div class="readout" id="wpOut"></div>
     <p class="small" id="wpNote"></p>
@@ -585,9 +585,9 @@ const PAPERS=[
 (function(){
  const cv=$('wpCv'),N=640,dx=.1,dt=.01,x0g=-32,al=dt/(4*dx*dx);
  let re=new Float64Array(N),im=new Float64Array(N),V=new Float64Array(N),cr=new Float64Array(N),ci=new Float64Array(N),dr=new Float64Array(N),di=new Float64Array(N);
- let preset='barrier',t=0,Epk=8,xc0=0;const xs=i=>x0g+i*dx;
+ let preset='barrier',t=0,Epk=8,xc0=0,mag=false;const MAG=25;const xs=i=>x0g+i*dx;
  const NOTES={free:'No forces act. The packet travels and also spreads out, because it contains a range of momenta, and the faster parts pull ahead. This spreading is why Schrödinger\'s hope that a particle is simply a small lump of wave could not work.',
-  barrier:'The barrier is taller than the particle\'s energy when the grey block rises above the red line. Classical physics then says 100 % reflection. Lower the barrier or raise the momentum and watch the transmitted share change. The run restarts before the packet reaches the edge of the picture.',
+  barrier:'The barrier is taller than the particle\'s energy when the grey block rises above the red line. Classical physics then says 100 % reflection. Lower the barrier or raise the momentum and watch the transmitted share change. With a tall barrier the violet wave still shows clear wiggles beyond it while the blue hump there looks flat. Both are right. The violet curve shows the wave itself, but probability is the wave\'s height squared: at the tallest barrier the transmitted wave is about 7 % as tall as the incoming one, so it carries only about 0.5 % of the probability (0.07 × 0.07 ≈ 0.005), too little to see at this scale. Press "Magnify far side" to enlarge the blue curve beyond the barrier. The run restarts before the packet reaches the edge of the picture.',
   well:'A bowl-shaped trap. "Non-spreading" means that the blue probability hump keeps exactly the same width and height for ever while it swings to and fro like a pendulum. Compare the free particle, whose hump gets steadily wider and lower. Only the violet real part changes its wiggles, tightest where the particle moves fastest. This is the special case from Schrödinger\'s July 1926 note. Here the page draws his exact formula, because the step-by-step solver used for the other two cases builds up small errors that would make the hump appear to breathe.'};
  function init(){const k0=+$('wpK').value,V0=+$('wpV').value;t=0;let xc=-14,sg=1.6,kk=k0;
   for(let i=0;i<N;i++){const x=xs(i);V[i]=preset==='barrier'?(x>=0&&x<=.6?V0:0):preset==='well'?.125*x*x:0}
@@ -596,7 +596,7 @@ const PAPERS=[
   s=1/Math.sqrt(s);for(let i=0;i<N;i++){re[i]*=s;im[i]*=s}re[0]=im[0]=re[N-1]=im[N-1]=0;
   Epk=preset==='well'?.125*xc*xc+.25:kk*kk/2+1/(8*sg*sg);
   $('wpKo').textContent=preset==='well'?(-xc).toFixed(1)+' from centre  (energy '+Epk.toFixed(1)+')':k0.toFixed(1)+'  (energy '+Epk.toFixed(1)+')';$('wpVo').textContent=preset==='barrier'?V0.toFixed(1):'not used';
-  $('wpV').disabled=preset!=='barrier';$('wpKl').textContent=preset==='well'?'Starting displacement':'Momentum';$('wpNote').textContent=NOTES[preset]}
+  $('wpV').disabled=preset!=='barrier';$('wpMag').hidden=preset!=='barrier';$('wpKl').textContent=preset==='well'?'Starting displacement':'Momentum';$('wpNote').textContent=NOTES[preset]}
  function wellExact(){ // exact coherent state of the trap V = x²/8 (ω = ½): a rigid Gaussian whose centre follows the classical swing
   const om=.5,X=xc0*Math.cos(om*t),P=-om*xc0*Math.sin(om*t),th=om*t/2+X*P/2,nn=Math.pow(om/Math.PI,.25);
   for(let i=0;i<N;i++){const x=xs(i),g=nn*Math.exp(-om*(x-X)*(x-X)/2),ph=P*x-th;re[i]=g*Math.cos(ph);im[i]=g*Math.sin(ph)}}
@@ -619,15 +619,18 @@ const PAPERS=[
   // Re psi
   c.strokeStyle=k.hg;c.lineWidth=1;c.globalAlpha=.75;c.beginPath();for(let i=0;i<N;i++){const y=base-h*.32-re[i]*h*.28;i?c.lineTo(X(i),y):c.moveTo(X(i),y)}c.stroke();c.globalAlpha=1;
   // |psi|^2
-  c.beginPath();c.moveTo(0,base);let L=0,R=0,M=0;for(let i=0;i<N;i++){const p=re[i]*re[i]+im[i]*im[i];c.lineTo(X(i),base-p*pS);const x=xs(i);if(x<0)L+=p*dx;else if(x>.6)R+=p*dx;else M+=p*dx}
+  const big=mag&&preset==='barrier';c.beginPath();c.moveTo(0,base);let L=0,R=0,M=0;for(let i=0;i<N;i++){const p=re[i]*re[i]+im[i]*im[i];c.lineTo(X(i),base-Math.min(p*(big&&xs(i)>.6?MAG:1)*pS,base-4));const x=xs(i);if(x<0)L+=p*dx;else if(x>.6)R+=p*dx;else M+=p*dx}
   c.lineTo(w,base);c.closePath();c.fillStyle=k.hb;c.globalAlpha=.3;c.fill();c.globalAlpha=1;c.strokeStyle=k.hb;c.lineWidth=2;c.stroke();
+  if(big){const xb=(.6-x0g)/dx/(N-1)*w;c.strokeStyle=k.hb;c.setLineDash([3,4]);c.lineWidth=1;c.beginPath();c.moveTo(xb+4,8);c.lineTo(xb+4,base);c.stroke();c.setLineDash([]);c.fillStyle=k.hb;c.font='600 12px IBM Plex Mono, monospace';c.textAlign='right';c.fillText('blue ×'+MAG+' here',w-8,20);c.textAlign='left'}
+  const pc=v=>(v*100).toFixed(v<.1?2:1)+' %';
   let o='<span><b>time </b>'+t.toFixed(1)+'</span><span><b>total probability </b>'+((L+R+M)*100).toFixed(1)+' %</span>';
-  if(preset==='barrier')o+='<span><b>left of barrier </b>'+(L*100).toFixed(1)+' %</span><span><b>tunnelled through </b>'+(R*100).toFixed(1)+' %</span>';
+  if(preset==='barrier')o+='<span><b>left of barrier </b>'+pc(L)+'</span><span><b>tunnelled through </b>'+pc(R)+'</span>';
   $('wpOut').innerHTML=o}
  const A={cv,on:!reduced,step(){if(preset==='well'){t+=4*dt;wellExact()}else{for(let i=0;i<4;i++)step();if(t>40/(+$('wpK').value))init()}},draw};anims.push(A);
  $('wpPresets').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;press($('wpPresets'),b);preset=b.dataset.p;init();draw()});
  $('wpK').addEventListener('input',()=>{init();draw()});$('wpV').addEventListener('input',()=>{init();draw()});
  $('wpReset').onclick=()=>{init();draw()};
+ $('wpMag').onclick=()=>{mag=!mag;$('wpMag').setAttribute('aria-pressed',mag);draw()};
  const pb=$('wpPlay');pb.textContent=A.on?'Pause':'Play';pb.onclick=()=>{A.on=!A.on;pb.textContent=A.on?'Pause':'Play'};
  init();statics.push(draw);
 })();
