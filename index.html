@@ -358,7 +358,7 @@ footer.end{padding-block:32px 48px;border-top:1px solid var(--line)}
         <div class="readout" id="bellOut" aria-live="polite"></div>
       </div>
     </div>
-    <p class="small">Each detector measures spin along the chosen angle and reports +1 or −1. The simulation draws results from the quantum rule for an entangled pair, so numbers vary slightly from run to run, as in a real laboratory, and a lucky run can land a little above 2.83. The plotted value is the product of the two results averaged over many pairs: −1 means always opposite, +1 always the same. Experiments of this kind earned the 2022 Nobel Prize in Physics.</p>
+    <p class="small">Each detector measures spin along the chosen angle and reports +1 or −1. The simulation draws results from the quantum rule for an entangled pair, so numbers vary slightly from run to run, as in a real laboratory, and a lucky run can land a little above 2.83. The plotted value is the product of the two results averaged over many pairs: −1 means always opposite, +1 always the same. Experiments of this kind earned Alain Aspect, John Clauser and Anton Zeilinger the 2022 Nobel Prize in Physics "for experiments with entangled photons, establishing the violation of Bell inequalities and pioneering quantum information science". Their experiments and Nobel lectures are listed in the <a href="#ref-nobel">references</a>.</p>
   </div>
 </div></section>
 
@@ -761,6 +761,14 @@ const PAPERS=[
  ['E. Schrödinger, "Discussion of Probability Relations between Separated Systems," Proc. Camb. Philos. Soc. 31, 555–563 (1935).','10.1017/S0305004100013554'],
  ['J. S. Bell, "On the Einstein Podolsky Rosen paradox," Physics Physique Fizika 1, 195–200 (1964).','10.1103/PhysicsPhysiqueFizika.1.195'],
  ['J. F. Clauser, M. A. Horne, A. Shimony and R. A. Holt, "Proposed Experiment to Test Local Hidden-Variable Theories," Phys. Rev. Lett. 23, 880–884 (1969).','10.1103/PhysRevLett.23.880'],
+ ['S. J. Freedman and J. F. Clauser, "Experimental Test of Local Hidden-Variable Theories," Phys. Rev. Lett. 28, 938–941 (1972). The first Bell test.','10.1103/PhysRevLett.28.938'],
+ ['A. Aspect, P. Grangier and G. Roger, "Experimental Realization of Einstein-Podolsky-Rosen-Bohm Gedankenexperiment: A New Violation of Bell\'s Inequalities," Phys. Rev. Lett. 49, 91–94 (1982).','10.1103/PhysRevLett.49.91'],
+ ['A. Aspect, J. Dalibard and G. Roger, "Experimental Test of Bell\'s Inequalities Using Time-Varying Analyzers," Phys. Rev. Lett. 49, 1804–1807 (1982).','10.1103/PhysRevLett.49.1804'],
+ ['G. Weihs, T. Jennewein, C. Simon, H. Weinfurter and A. Zeilinger, "Violation of Bell\'s Inequality under Strict Einstein Locality Conditions," Phys. Rev. Lett. 81, 5039–5043 (1998).','10.1103/PhysRevLett.81.5039'],
+ ['The Nobel Prize in Physics 2022, awarded to A. Aspect, J. F. Clauser and A. Zeilinger "for experiments with entangled photons, establishing the violation of Bell inequalities and pioneering quantum information science". NobelPrize.org, Nobel Prize Outreach. No DOI.','https://www.nobelprize.org/prizes/physics/2022/summary/','ref-nobel'],
+ ['A. Aspect, "From Einstein\'s doubts to quantum technologies: non-locality a fruitful image," Nobel Prize lecture, Aula Magna, Stockholm University, 8 December 2022. Video on NobelPrize.org; no DOI.','https://www.nobelprize.org/prizes/physics/2022/aspect/lecture/'],
+ ['J. F. Clauser, "Experimental proof that nonlocal quantum entanglement is real," Nobel Prize lecture, Aula Magna, Stockholm University, 8 December 2022. Video on NobelPrize.org; no DOI.','https://www.nobelprize.org/prizes/physics/2022/clauser/lecture/'],
+ ['A. Zeilinger, "A Voyage through Quantum Wonderland," Nobel Prize lecture, Aula Magna, Stockholm University, 8 December 2022. Video on NobelPrize.org; no DOI.','https://www.nobelprize.org/prizes/physics/2022/zeilinger/lecture/'],
  ['E. Joos and H. D. Zeh, "The emergence of classical properties through interaction with the environment," Z. Phys. B 59, 223–243 (1985).','10.1007/BF01725541'],
  ['W. H. Zurek, "Decoherence, einselection, and the quantum origins of the classical," Rev. Mod. Phys. 75, 715–775 (2003).','10.1103/RevModPhys.75.715'],
  ['C. Monroe et al., "A \'Schrödinger Cat\' Superposition State of an Atom," Science 272, 1131–1136 (1996).','10.1126/science.272.5265.1131'],
@@ -777,7 +785,7 @@ const PAPERS=[
  ['W. J. Moore, Schrödinger: Life and Thought (Cambridge University Press, 1989).','10.1017/CBO9780511600012'],
  ['W. Heisenberg, Der Teil und das Ganze (Piper, Munich, 1969); English: Physics and Beyond (Harper & Row, 1971). Source of the Copenhagen recollection. No DOI.',null],
  ['J. Humphreys, "How Erwin Schrödinger indulged his \'Lolita complex\' in Ireland," The Irish Times, 11 December 2021. No DOI.',null]];
- const ol=$('refList');R.forEach(r=>{const li=document.createElement('li');li.textContent=r[0]+' ';if(r[1]){const a=document.createElement('a');a.href='https://doi.org/'+r[1];a.target='_blank';a.rel='noopener';a.textContent='doi:'+r[1];li.appendChild(a)}ol.appendChild(li)});
+ const ol=$('refList');R.forEach(r=>{const li=document.createElement('li');li.textContent=r[0]+' ';if(r[2])li.id=r[2];if(r[1]){const url=/^https?:/.test(r[1]),a=document.createElement('a');a.href=url?r[1]:'https://doi.org/'+r[1];a.target='_blank';a.rel='noopener';a.textContent=url?r[1].replace(/^https:\/\/www\./,''):'doi:'+r[1];li.appendChild(a)}ol.appendChild(li)});
 })();
 
 /* ---------- drawing loop ---------- */
