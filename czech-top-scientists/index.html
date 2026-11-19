@@ -1,0 +1,218 @@
+<meta charset="utf-8">
+<title>Czech Scientists in the Top 2%</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a summary band (counts + two ranked bar lists) above one full-width, filterable register of every researcher.
+   Palette: the deep blue of the Czech flag as the working accent, its red used only for the career/2025 "both lists" mark. */
+:root{
+  --bg:#f5f7fb; --surface:#ffffff; --line:#dbe2ee; --ink:#121a2b; --muted:#5a6680;
+  --accent:#11457e; --accent-soft:#e3ebf7; --red:#c8161d; --bar:#9bb3d6;
+  --display:"Archivo",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1320; --surface:#151d2e; --line:#26324a; --ink:#e7ecf5; --muted:#93a0ba;
+  --accent:#7fa8e8; --accent-soft:#1c2b47; --red:#f0646a; --bar:#3c5f94; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1320; --surface:#151d2e; --line:#26324a; --ink:#e7ecf5; --muted:#93a0ba;
+  --accent:#7fa8e8; --accent-soft:#1c2b47; --red:#f0646a; --bar:#3c5f94; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);margin:0}
+.wrap{max-width:1240px;margin:0 auto;padding-block:32px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(28px,4.4vw,44px);font-weight:800;line-height:1.08}
+h2{font-size:17px;font-weight:700}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+header{display:grid;gap:12px}
+header p{margin:0;max-width:68ch;color:var(--muted)}
+a{color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.stat{background:var(--surface);padding:16px 18px;display:grid;gap:2px}
+.stat b{font:700 30px/1.1 var(--display);font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:13px}
+.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.chart{display:grid;gap:10px;min-width:0}
+.chart small{color:var(--muted)}
+.bars{display:grid;gap:5px}
+.bar{display:grid;grid-template-columns:minmax(0,17em) 1fr 3em;gap:10px;align-items:center;font-size:13px;background:none;border:0;padding:2px 0;color:inherit;text-align:left;cursor:pointer;font-family:inherit}
+.bar:hover .lbl,.bar.on .lbl{color:var(--accent)}
+.bar.on .fill{background:var(--accent)}
+.bar .lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .track{display:block;height:12px;background:var(--accent-soft);border-radius:3px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--bar);border-radius:3px}
+.bar .v{font:500 12px var(--mono);text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.controls label{display:grid;gap:4px;font-size:12px;color:var(--muted);min-width:0}
+input,select{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:8px 10px;max-width:100%}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#q{width:min(320px,100%)}
+#inst{width:min(300px,100%)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:var(--surface)}
+.seg button{font:inherit;font-size:13px;border:0;background:none;color:var(--muted);padding:8px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+.count{margin-left:auto;font:500 13px var(--mono);color:var(--muted)}
+#reset{font:inherit;font-size:13px;background:none;border:0;color:var(--accent);cursor:pointer;padding:8px 4px}
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:980px;font-size:13.5px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 11.5px var(--body);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);position:sticky;top:0;background:var(--surface);cursor:pointer;white-space:nowrap;user-select:none}
+th.num,td.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:12.5px}
+th[aria-sort="ascending"]::after{content:" ↑"} th[aria-sort="descending"]::after{content:" ↓"}
+tbody tr:hover{background:var(--accent-soft)}
+td.name{font-weight:600}
+td .sub{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.pill{display:inline-block;font:500 10.5px var(--mono);padding:1px 6px;border-radius:999px;border:1px solid currentColor;margin-left:6px;vertical-align:1px;white-space:nowrap}
+.pill.both{color:var(--red)} .pill.c{color:var(--accent)} .pill.s{color:var(--muted)}
+.muted{color:var(--muted)}
+.more{justify-self:center;font:inherit;font-size:14px;padding:9px 18px;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--accent);cursor:pointer}
+.notes{display:grid;gap:8px;color:var(--muted);font-size:13.5px;max-width:80ch}
+.notes p{margin:0}
+.notes dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:4px 0 0}
+.notes dt{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+.notes dd{margin:0}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:minmax(0,1fr)}.bar{grid-template-columns:minmax(0,10em) 1fr 2.6em}.count{margin-left:0;width:100%}}
+@media (prefers-reduced-motion:no-preference){.fill{transition:width .4s ease}}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Stanford–Elsevier top-scientist lists · 2026 release (v9)</span>
+    <h1>Czech Scientists in the Top&nbsp;2%</h1>
+    <p>Every researcher whose most recent institution is in the Czech Republic (country code <code>cze</code>) in the
+    <a href="https://elsevier.digitalcommonsdata.com/datasets/btchxktzyw/9" target="_blank" rel="noopener">Updated science-wide author databases of standardized citation indicators</a>
+    by J.&nbsp;P.&nbsp;A. Ioannidis, using Scopus data extracted in August 2026. It covers both the career-long list (citations 1996–2025) and the single-year list (citations in 2025).</p>
+  </header>
+
+  <section class="stats" id="stats" aria-label="Summary"></section>
+
+  <section class="charts">
+    <div class="chart"><h2>Institutions</h2><small>Researchers per institution, top 12. Click to filter.</small><div class="bars" id="instBars"></div></div>
+    <div class="chart"><h2>Fields</h2><small>Main Science-Metrix field. Click to filter.</small><div class="bars" id="fieldBars"></div></div>
+  </section>
+
+  <section style="display:grid;gap:12px">
+    <div class="controls">
+      <label for="q">Search name or subfield<input id="q" type="search" placeholder="e.g. Hobza, Ecology" autocomplete="off"></label>
+      <label for="inst">Institution<select id="inst"><option value="">All institutions</option></select></label>
+      <label for="field">Field<select id="field"><option value="">All fields</option></select></label>
+      <div style="display:grid;gap:4px"><span style="font-size:12px;color:var(--muted)">Metrics from</span>
+        <div class="seg" role="group" aria-label="List"><button id="m-c" aria-pressed="true">Career</button><button id="m-s" aria-pressed="false">2025</button></div></div>
+      <label for="only">Listed in<select id="only"><option value="">Either list</option><option value="c">Career list</option><option value="s">2025 list</option><option value="both">Both lists</option></select></label>
+      <button id="reset" type="button">Clear filters</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="tablebox"><table>
+      <thead><tr id="head"></tr></thead>
+      <tbody id="body"><tr><td colspan="10" class="muted">Loading 852 researchers…</td></tr></tbody>
+    </table></div>
+    <button class="more" id="more" type="button" hidden>Show more</button>
+  </section>
+
+  <section class="notes">
+    <h2 style="color:var(--ink)">How to read this</h2>
+    <p>The source lists include anyone in the global top 100,000 by composite score <i>c</i> or in the top 2% of their main subfield, among authors with at least five papers. Country is the one recorded for the author's most recent Scopus affiliation, so foreign researchers now working in Czechia are included and Czech researchers working abroad are not.</p>
+    <dl>
+      <dt>Rank</dt><dd>World rank by composite score <i>c</i> (all citations) in the selected list.</dd>
+      <dt>c</dt><dd>Composite indicator combining total citations, h-index, co-authorship-adjusted hm-index and citations to single, first and last-author papers.</dd>
+      <dt>Subfield top %</dt><dd>Rank within the author's main subfield divided by the number of authors in that subfield.</dd>
+      <dt>Citations</dt><dd>Career list: citations received 1996–2025. 2025 list: citations received in 2025.</dd>
+      <dt>Self-cit.</dt><dd>Share of citations that are self-citations.</dd>
+      <dt>Tags</dt><dd><span class="pill both">both</span> on both lists, <span class="pill c">career</span> career list only, <span class="pill s">2025</span> single-year list only.</dd>
+    </dl>
+    <p>Institution names are as given in the dataset; smaller institutions are left blank there. 852 rows: a few people appear twice because their institution differs between the two lists.</p>
+  </section>
+</div>
+
+<script>
+const fmt=new Intl.NumberFormat('en-US');
+const S={rows:[],m:'c',q:'',inst:'',field:'',only:'',sort:'rk',dir:1,limit:150};
+const COLS=[
+  {k:'idx',t:'#',num:1,nosort:1},
+  {k:'n',t:'Researcher'},
+  {k:'i',t:'Institution'},
+  {k:'s1',t:'Field / subfield'},
+  {k:'rk',t:'Rank',num:1},
+  {k:'c',t:'c',num:1},
+  {k:'h',t:'h-index',num:1},
+  {k:'nc',t:'Citations',num:1},
+  {k:'pct',t:'Subfield top %',num:1},
+  {k:'sf',t:'Self-cit.',num:1},
+];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function metric(r,k){const m=r[S.m];if(!m)return null;return m[k]}
+function val(r,k){
+  if(k==='n'||k==='i'||k==='s1')return (r[k]||'￿').toLowerCase();
+  const v=metric(r,k);return v==null?null:v;
+}
+function filtered(){
+  const q=S.q.trim().toLowerCase();
+  return S.rows.filter(r=>{
+    if(S.inst&&r.i!==S.inst)return false;
+    if(S.field&&r.f!==S.field)return false;
+    if(S.only==='c'&&!r.c)return false;
+    if(S.only==='s'&&!r.s)return false;
+    if(S.only==='both'&&!(r.c&&r.s))return false;
+    if(q&&!(r.n.toLowerCase().includes(q)||r.s1.toLowerCase().includes(q)||r.f.toLowerCase().includes(q)||r.i.toLowerCase().includes(q)))return false;
+    return true;
+  });
+}
+function sorted(list){
+  const k=S.sort,d=S.dir;
+  return list.slice().sort((a,b)=>{
+    const x=val(a,k),y=val(b,k);
+    if(x==null&&y==null)return 0; if(x==null)return 1; if(y==null)return -1;
+    return x<y?-d:x>y?d:0;
+  });
+}
+function tag(r){return r.c&&r.s?'<span class="pill both">both</span>':r.c?'<span class="pill c">career</span>':'<span class="pill s">2025</span>'}
+function renderHead(){
+  $('head').innerHTML=COLS.map(c=>`<th class="${c.num?'num':''}" data-k="${c.k}" ${c.nosort?'':'tabindex="0"'} ${S.sort===c.k?`aria-sort="${S.dir>0?'ascending':'descending'}"`:''}>${c.t}</th>`).join('');
+}
+function render(){
+  const list=sorted(filtered());
+  $('count').textContent=`${fmt.format(list.length)} of ${fmt.format(S.rows.length)} shown`;
+  const shown=list.slice(0,S.limit);
+  $('body').innerHTML=shown.length?shown.map((r,i)=>{
+    const m=r[S.m];
+    const cells=m?`<td class="num">${fmt.format(m.rk)}</td><td class="num">${m.c.toFixed(3)}</td><td class="num">${m.h}</td><td class="num">${fmt.format(m.nc)}</td><td class="num">${m.pct<0.01?'&lt;0.01':m.pct.toFixed(2)}%</td><td class="num">${m.sf.toFixed(1)}%</td>`
+      :`<td class="num muted" colspan="6">not on the ${S.m==='c'?'career':'2025'} list</td>`;
+    return `<tr><td class="num muted">${i+1}</td><td class="name">${esc(r.n)}${tag(r)}<span class="sub">active ${r.y0}–${r.y1} · ${fmt.format(r.np)} papers</span></td><td>${r.i?esc(r.i):'<span class="muted">not given</span>'}</td><td>${esc(r.f)}<span class="sub">${esc(r.s1)}</span></td>${cells}</tr>`;
+  }).join(''):`<tr><td colspan="10" class="muted">No researchers match these filters. Clear a filter to see more.</td></tr>`;
+  $('more').hidden=list.length<=S.limit;
+  $('more').textContent=`Show ${fmt.format(Math.min(300,list.length-S.limit))} more`;
+  renderHead();
+  document.querySelectorAll('#instBars .bar').forEach(b=>b.classList.toggle('on',b.dataset.v===S.inst));
+  document.querySelectorAll('#fieldBars .bar').forEach(b=>b.classList.toggle('on',b.dataset.v===S.field));
+}
+function counts(key){const m=new Map();S.rows.forEach(r=>{const v=r[key];if(v)m.set(v,(m.get(v)||0)+1)});return [...m].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))}
+function bars(el,data,key){
+  const max=data[0][1];
+  $(el).innerHTML=data.map(([n,v])=>`<button class="bar" type="button" data-v="${esc(n)}" title="${esc(n)}: ${v}"><span class="lbl">${esc(n)}</span><span class="track"><span class="fill" style="width:${(100*v/max).toFixed(1)}%"></span></span><span class="v">${v}</span></button>`).join('');
+  $(el).onclick=e=>{const b=e.target.closest('.bar');if(!b)return;S[key]=S[key]===b.dataset.v?'':b.dataset.v;$(key).value=S[key];S.limit=150;render()};
+}
+function init(rows){
+  S.rows=rows;
+  const nc=rows.filter(r=>r.c).length,ns=rows.filter(r=>r.s).length,nb=rows.filter(r=>r.c&&r.s).length;
+  const names=new Set(rows.map(r=>r.n)).size;
+
+  $('stats').innerHTML=[[names,'distinct researchers'],[nc,'on the career-long list'],[ns,'on the 2025 single-year list'],[nb,'on both lists']]
+    .map(([v,l])=>`<div class="stat"><b>${fmt.format(v)}</b><span>${l}</span></div>`).join('');
+  const inst=counts('i'),field=counts('f');
+  bars('instBars',inst.slice(0,12),'inst');bars('fieldBars',field.slice(0,12),'field');
+  $('inst').insertAdjacentHTML('beforeend',inst.map(([n,v])=>`<option value="${esc(n)}">${esc(n)} (${v})</option>`).join(''));
+  $('field').insertAdjacentHTML('beforeend',field.map(([n,v])=>`<option value="${esc(n)}">${esc(n)} (${v})</option>`).join(''));
+  render();
+}
+$('q').oninput=e=>{S.q=e.target.value;S.limit=150;render()};
+['inst','field','only'].forEach(k=>$(k).onchange=e=>{S[k]=e.target.value;S.limit=150;render()});
+function setM(m){S.m=m;$('m-c').setAttribute('aria-pressed',m==='c');$('m-s').setAttribute('aria-pressed',m==='s');render()}
+$('m-c').onclick=()=>setM('c');$('m-s').onclick=()=>setM('s');
+$('more').onclick=()=>{S.limit+=300;render()};
+$('reset').onclick=()=>{Object.assign(S,{q:'',inst:'',field:'',only:'',limit:150});['q','inst','field','only'].forEach(k=>$(k).value='');render()};
+function sortBy(k){if(!k||k==='idx')return;if(S.sort===k)S.dir*=-1;else{S.sort=k;S.dir=(k==='c'||k==='h'||k==='nc')?-1:1}render()}
+$('head').onclick=e=>{const th=e.target.closest('th');if(th)sortBy(th.dataset.k)};
+$('head').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){const th=e.target.closest('th');if(th){e.preventDefault();sortBy(th.dataset.k)}}};
+fetch('czech-scientists.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(init)
+  .catch(()=>{$('body').innerHTML='<tr><td colspan="10">The data file czech-scientists.json could not be loaded. Reload the page to try again.</td></tr>'});
+</script>
