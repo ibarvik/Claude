@@ -1,0 +1,767 @@
+{
+ "Balikova, M. A.": {
+  "fac": null,
+  "votes": {
+   "First Faculty of Medicine": 1
+  },
+  "papers": 1
+ },
+ "Barek, Jiří Racute": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 2
+  },
+  "papers": 2
+ },
+ "Bartoníček, Jan": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 6
+  },
+  "papers": 6
+ },
+ "Barták, Roman": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 14
+  },
+  "papers": 14
+ },
+ "Bencko, Vladimir": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 2
+  },
+  "papers": 2
+ },
+ "Biederman, Hynek": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 7
+  },
+  "papers": 7
+ },
+ "Bojar, Ondřej": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 2
+  },
+  "papers": 2
+ },
+ "Brody, Stuart": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Brůžek, Jaroslav": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 4
+  },
+  "papers": 4
+ },
+ "Buechner, Stanislaw A.": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Bukovský, Antonine": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Bures ̌, Jan R.": {
+  "fac": "Faculty of Medicine in Hradec Králové",
+  "votes": {
+   "Faculty of Medicine in Hradec Králové": 10,
+   "First Faculty of Medicine": 5,
+   "Second Faculty of Medicine": 1,
+   "Faculty of Pharmacy in Hradec Králové": 1
+  },
+  "papers": 17
+ },
+ "Carpentier, Nico": {
+  "fac": "Faculty of Social Sciences",
+  "votes": {
+   "Faculty of Social Sciences": 2
+  },
+  "papers": 2
+ },
+ "Das, Sumit": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Dvořák, Zdeněk": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Edelkamp, Stefan": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Emmer, Adam": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 2
+  },
+  "papers": 2
+ },
+ "Ettler, Vojtěch Ě.": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 5
+  },
+  "papers": 5
+ },
+ "Flegr, Jaroslav": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 18
+  },
+  "papers": 18
+ },
+ "Frič, Přemysl": {
+  "fac": null,
+  "votes": {
+   "Faculty of Social Sciences": 1,
+   "First Faculty of Medicine": 1
+  },
+  "papers": 2
+ },
+ "Frouz, Jan": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 15
+  },
+  "papers": 15
+ },
+ "Frynta, Daniel": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 18
+  },
+  "papers": 18
+ },
+ "Gaš, Bohuslav": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 4
+  },
+  "papers": 4
+ },
+ "Hajic, J.": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Hampl, Vladimír": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 12,
+   "Second Faculty of Medicine": 1,
+   "BIOCEV": 1
+  },
+  "papers": 14
+ },
+ "Havranek, Tomas J.": {
+  "fac": "Faculty of Social Sciences",
+  "votes": {
+   "Faculty of Social Sciences": 5
+  },
+  "papers": 5
+ },
+ "Hejna, Petr": {
+  "fac": "Faculty of Medicine in Hradec Králové",
+  "votes": {
+   "Faculty of Medicine in Hradec Králové": 3
+  },
+  "papers": 3
+ },
+ "Hemminki, Kari": {
+  "fac": "Faculty of Medicine in Pilsen",
+  "votes": {
+   "Faculty of Medicine in Pilsen": 31
+  },
+  "papers": 31
+ },
+ "Heneberg, Petr": {
+  "fac": "Third Faculty of Medicine",
+  "votes": {
+   "Third Faculty of Medicine": 13
+  },
+  "papers": 13
+ },
+ "Herben, Tomáš": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 20
+  },
+  "papers": 20
+ },
+ "Hladík, Milan": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 3
+  },
+  "papers": 3
+ },
+ "Holecek, M.": {
+  "fac": "Faculty of Medicine in Hradec Králové",
+  "votes": {
+   "Faculty of Medicine in Hradec Králové": 4
+  },
+  "papers": 4
+ },
+ "Horváth, Roman": {
+  "fac": "Faculty of Social Sciences",
+  "votes": {
+   "Faculty of Social Sciences": 3
+  },
+  "papers": 3
+ },
+ "Horák, Petr": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 2
+  },
+  "papers": 2
+ },
+ "Hubka, Vít": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 5
+  },
+  "papers": 5
+ },
+ "Husěk, Petr": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Huth, Radan": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 10
+  },
+  "papers": 10
+ },
+ "Jarošík, Vojtěch": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 2
+  },
+  "papers": 2
+ },
+ "Jefferys, John G.R.": {
+  "fac": "Second Faculty of Medicine",
+  "votes": {
+   "Second Faculty of Medicine": 2
+  },
+  "papers": 2
+ },
+ "Kachlík, David": {
+  "fac": "Second Faculty of Medicine",
+  "votes": {
+   "Third Faculty of Medicine": 1,
+   "Second Faculty of Medicine": 10
+  },
+  "papers": 10
+ },
+ "Kala, Vítězslav": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 8
+  },
+  "papers": 8
+ },
+ "Kanta, Jirí": {
+  "fac": "Faculty of Medicine in Hradec Králové",
+  "votes": {
+   "Faculty of Medicine in Hradec Králové": 4
+  },
+  "papers": 4
+ },
+ "Klimeš, Jiří": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 5
+  },
+  "papers": 5
+ },
+ "Kotora, Martin": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 19
+  },
+  "papers": 19
+ },
+ "Koziar Vašáková, Martina Koziar": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 3
+  },
+  "papers": 3
+ },
+ "Kozák, Martin": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 8
+  },
+  "papers": 8
+ },
+ "Kočovský, Pavel": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 3,
+   "Faculty of Pharmacy in Hradec Králové": 2
+  },
+  "papers": 3
+ },
+ "Krajíček, Jan": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 2,
+   "Faculty of Arts": 1,
+   "Faculty of Science": 1
+  },
+  "papers": 4
+ },
+ "Kratochvíl, Jan": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 2
+  },
+  "papers": 2
+ },
+ "Kubizňák, David": {
+  "fac": null,
+  "votes": {
+   "Faculty of Mathematics and Physics": 1
+  },
+  "papers": 1
+ },
+ "Kužel, Radomír": {
+  "fac": null,
+  "votes": {
+   "Faculty of Mathematics and Physics": 1
+  },
+  "papers": 1
+ },
+ "Kvaček, Zlatko": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 8
+  },
+  "papers": 8
+ },
+ "Lukáĉ, Pavel": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Malík, Jan": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 2,
+   "Second Faculty of Medicine": 1
+  },
+  "papers": 3
+ },
+ "Matolín, Vladimír": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 2
+  },
+  "papers": 2
+ },
+ "Matousěk, Jǐrí": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Mašín, David": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 8
+  },
+  "papers": 8
+ },
+ "Michal, Michal": {
+  "fac": "Faculty of Medicine in Pilsen",
+  "votes": {
+   "Faculty of Medicine in Pilsen": 2
+  },
+  "papers": 2
+ },
+ "Minárik, Peter": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 13
+  },
+  "papers": 13
+ },
+ "Mokrỳ, Jaroslav": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Münzbergová, Zuzana": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 28
+  },
+  "papers": 28
+ },
+ "Nešetřil, Jařošlav": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Opekar, František": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 10
+  },
+  "papers": 10
+ },
+ "Pavelka, Karel": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 12
+  },
+  "papers": 12
+ },
+ "Pavlíková, Nela": {
+  "fac": "Third Faculty of Medicine",
+  "votes": {
+   "Third Faculty of Medicine": 2
+  },
+  "papers": 2
+ },
+ "Pavlínek, Petr": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Pařízková, Jana": {
+  "fac": null,
+  "votes": {
+   "Faculty of Science": 1
+  },
+  "papers": 1
+ },
+ "Pecina, Pavel": {
+  "fac": null,
+  "votes": {
+   "Faculty of Mathematics and Physics": 1
+  },
+  "papers": 1
+ },
+ "Pfaus, James G.": {
+  "fac": "Faculty of Humanities",
+  "votes": {
+   "Faculty of Humanities": 8
+  },
+  "papers": 8
+ },
+ "Podolský, Jiří": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 4
+  },
+  "papers": 4
+ },
+ "Procházka, Karel": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 4
+  },
+  "papers": 4
+ },
+ "Pyšek, Petr": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 16
+  },
+  "papers": 16
+ },
+ "Přikryl, Richard": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 2
+  },
+  "papers": 2
+ },
+ "Racek, Jaroslav": {
+  "fac": "Faculty of Medicine in Pilsen",
+  "votes": {
+   "Faculty of Medicine in Pilsen": 2
+  },
+  "papers": 2
+ },
+ "Roubíček, Tomáš": {
+  "fac": null,
+  "votes": {
+   "Faculty of Mathematics and Physics": 1
+  },
+  "papers": 1
+ },
+ "Rudolf, Emil": {
+  "fac": "Faculty of Medicine in Hradec Králové",
+  "votes": {
+   "Faculty of Medicine in Hradec Králové": 5
+  },
+  "papers": 5
+ },
+ "Rusz, Jan": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 15
+  },
+  "papers": 15
+ },
+ "Santolík, OndÅ™ej": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 29
+  },
+  "papers": 29
+ },
+ "Sedmera, David": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 19
+  },
+  "papers": 19
+ },
+ "Seemanová, Eva": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Setvin, M.": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 7
+  },
+  "papers": 7
+ },
+ "Sgall, Jiri": {
+  "fac": null,
+  "votes": {
+   "Faculty of Mathematics and Physics": 1
+  },
+  "papers": 1
+ },
+ "Shamzhy, Mariya V.": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 6
+  },
+  "papers": 6
+ },
+ "Skrbek, Ladislav": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 5
+  },
+  "papers": 5
+ },
+ "Skálová, Alena": {
+  "fac": "Faculty of Medicine in Pilsen",
+  "votes": {
+   "Faculty of Medicine in Pilsen": 10
+  },
+  "papers": 10
+ },
+ "Smetana, Karel": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 7,
+   "BIOCEV": 1
+  },
+  "papers": 7
+ },
+ "Soucek, Pavel": {
+  "fac": "Faculty of Medicine in Pilsen",
+  "votes": {
+   "Faculty of Medicine in Pilsen": 5
+  },
+  "papers": 5
+ },
+ "Stefano, George B.": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 14
+  },
+  "papers": 14
+ },
+ "Stiborovà, Marie": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Storch, David": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 13
+  },
+  "papers": 13
+ },
+ "Straka, Jakub": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 11
+  },
+  "papers": 11
+ },
+ "Straka, Milan": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 3
+  },
+  "papers": 3
+ },
+ "Suda, Jan": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 11
+  },
+  "papers": 11
+ },
+ "Tkachenko, Anton S.": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 9
+  },
+  "papers": 9
+ },
+ "Trněnỳ, Marek Trn": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Tůma, Petr": {
+  "fac": "Third Faculty of Medicine",
+  "votes": {
+   "Third Faculty of Medicine": 3,
+   "Faculty of Mathematics and Physics": 2
+  },
+  "papers": 5
+ },
+ "Vejpravová, Jana Poltierová": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 4
+  },
+  "papers": 4
+ },
+ "Velemínská, Jana": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 6
+  },
+  "papers": 6
+ },
+ "Vokrouhlický, David": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 2
+  },
+  "papers": 2
+ },
+ "Volavka, Jan": {
+  "fac": null,
+  "votes": {
+   "Faculty of Medicine in Pilsen": 1
+  },
+  "papers": 1
+ },
+ "Volf, Petr": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 7,
+   "First Faculty of Medicine": 2
+  },
+  "papers": 9
+ },
+ "Votýpka, J.": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 8
+  },
+  "papers": 8
+ },
+ "Váńa, Jiří": {
+  "fac": null,
+  "votes": {},
+  "papers": 0
+ },
+ "Zeman, Daniel": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 4
+  },
+  "papers": 4
+ },
+ "Ĉejka, Jir̂í": {
+  "fac": null,
+  "votes": {
+   "Faculty of Science": 1
+  },
+  "papers": 1
+ },
+ "Čepička, Ivan": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 21
+  },
+  "papers": 21
+ },
+ "Červený, Vlastislav": {
+  "fac": null,
+  "votes": {
+   "Faculty of Mathematics and Physics": 1,
+   "Faculty of Science": 1
+  },
+  "papers": 2
+ },
+ "Čížek, Jakub": {
+  "fac": "Faculty of Mathematics and Physics",
+  "votes": {
+   "Faculty of Mathematics and Physics": 3
+  },
+  "papers": 3
+ },
+ "Šenolt, Ladislav": {
+  "fac": "First Faculty of Medicine",
+  "votes": {
+   "First Faculty of Medicine": 9
+  },
+  "papers": 9
+ },
+ "Štulík, Karel": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 2
+  },
+  "papers": 2
+ },
+ "Štěpnička, Petr": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 36
+  },
+  "papers": 36
+ },
+ "Žárský, Viktor": {
+  "fac": "Faculty of Science",
+  "votes": {
+   "Faculty of Science": 13
+  },
+  "papers": 13
+ }
+}

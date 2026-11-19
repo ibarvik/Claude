@@ -1,17 +1,25 @@
 """Build czech-scientists.json from the rows extracted from the dataset xlsx files.
 
-Usage: python3 -I build_data.py <extracted.json> <group-overrides.json> <out.json>
+Usage: python3 -I build_data.py <extracted.json> <out.json>
+(reads group-overrides.json, cuni-faculties.json and faculty-overrides.json from this folder)
 
 Groups:
   cz   latest affiliation in Czechia (dataset field cntry == cze)
   top  latest affiliation abroad, but Czechia is the most frequent country of their career papers
   p10  latest affiliation abroad, Czechia has at least 10% of their career papers
 group-overrides.json maps "Name|Institution" (or just "Name") to a group, to move people by hand.
+faculty-overrides.json maps a Charles University researcher's "Name" to a faculty, overriding cuni-faculties.json.
 """
-import json, sys
+import json, os, sys
+HERE = os.path.dirname(os.path.abspath(__file__))
+def load(f): return json.load(open(os.path.join(HERE, f)))
+# Charles University faculties that the dataset names as separate institutions
+CU_NAMED = {'Univerzita Karlova, Farmaceutická Fakulta v Hradci Králové': 'Faculty of Pharmacy in Hradec Králové',
+            'Filozofická Fakulta Univerzita Karlova': 'Faculty of Arts'}
 ORDER = {'cz': 0, 'top': 1, 'p10': 2}
 d = json.load(open(sys.argv[1]))
-over = json.load(open(sys.argv[2]))
+over = load('group-overrides.json')
+facs = load('cuni-faculties.json'); fover = load('faculty-overrides.json')
 P = {}
 for which, nck in (('career', 'nc9625'), ('single', 'nc2525')):
     for r in d[which]['rows']:
@@ -33,8 +41,16 @@ for p in P.values():
     g = over.get(f"{p['n']}|{p['i']}") or over.get(p['n'])
     if g:
         assert g in ORDER, g
+        if g != p['g']: p['g0'] = p['g']
         p['g'] = g; p['mv'] = 1; moved += 1
+    if p['i'] in CU_NAMED:
+        p['io'] = p['i']; p['fac'] = CU_NAMED[p['i']]; p['i'] = 'Charles University'
+    elif p['i'] == 'Charles University':
+        f = facs.get(p['n']) or {}
+        if fover.get(p['n']): p['fac'] = fover[p['n']]
+        elif f.get('fac'): p['fac'] = f['fac']; p['fv'] = f['votes'][f['fac']]
+        elif f.get('votes'): p['fh'] = max(f['votes'], key=f['votes'].get)
 rows = sorted(P.values(), key=lambda p: (p.get('c', {}).get('rk', 10**9), p.get('s', {}).get('rk', 10**9)))
-open(sys.argv[3], 'w').write('[\n' + ',\n'.join(json.dumps(r, ensure_ascii=False, separators=(',', ':')) for r in rows) + '\n]\n')
+open(sys.argv[2], 'w').write('[\n' + ',\n'.join(json.dumps(r, ensure_ascii=False, separators=(',', ':')) for r in rows) + '\n]\n')
 from collections import Counter
 print(len(rows), Counter(p['g'] for p in rows), 'moved by hand:', moved)

@@ -44,6 +44,13 @@ a{color:var(--accent)}
 .bar .track{display:block;height:12px;background:var(--accent-soft);border-radius:3px;overflow:hidden}
 .bar .fill{display:block;height:100%;background:var(--bar);border-radius:3px}
 .bar .v{font:500 12px var(--mono);text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.bar.fac{padding-left:16px;font-size:12.5px}
+.bar.fac .lbl::before{content:"↳ ";color:var(--muted)}
+.bar.fac .fill{background:var(--accent);opacity:.55}
+.bar.fac.on .fill{opacity:1}
+.linkbtn{justify-self:start;font:inherit;font-size:13px;background:none;border:0;color:var(--accent);cursor:pointer;padding:4px 0}
+.linkbtn:hover{text-decoration:underline}
+#instBars.all{max-height:520px;overflow-y:auto;padding-right:6px}
 .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
 .controls label{display:grid;gap:4px;font-size:12px;color:var(--muted);min-width:0}
 input,select{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:8px 10px;max-width:100%}
@@ -69,6 +76,9 @@ td .abroad{display:block;color:var(--amber);font:500 11.5px var(--mono);margin-t
 .pill{display:inline-block;font:500 10.5px var(--mono);padding:1px 6px;border-radius:999px;border:1px solid currentColor;margin-left:6px;vertical-align:1px;white-space:nowrap}
 .pill.both{color:var(--red)} .pill.c{color:var(--accent)} .pill.s{color:var(--muted)}
 .pill.g{color:var(--amber)}
+td .moved{display:block;color:var(--accent);font:500 11.5px var(--mono);margin-top:2px}
+td .fac{display:block;font-size:12.5px;color:var(--ink)}
+td .fac.unk{color:var(--muted);font-style:italic}
 .muted{color:var(--muted)}
 .more{justify-self:center;font:inherit;font-size:14px;padding:9px 18px;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--accent);cursor:pointer}
 .notes{display:grid;gap:8px;color:var(--muted);font-size:13.5px;max-width:80ch}
@@ -94,7 +104,7 @@ td .abroad{display:block;color:var(--amber);font:500 11.5px var(--mono);margin-t
   <section class="groups" id="groups" aria-label="Groups"></section>
 
   <section class="charts">
-    <div class="chart"><h2 id="leftTitle">Institutions</h2><small id="leftNote">Researchers per institution in the selected group, top 12. Click to filter.</small><div class="bars" id="instBars"></div></div>
+    <div class="chart"><h2 id="leftTitle">Institutions</h2><small id="leftNote">Researchers per institution in the selected group, top 12. Click to filter.</small><div class="bars" id="instBars"></div><button class="linkbtn" id="instAll" type="button" hidden></button></div>
     <div class="chart"><h2>Fields</h2><small>Main Science-Metrix field in the selected group. Click to filter.</small><div class="bars" id="fieldBars"></div></div>
   </section>
 
@@ -102,6 +112,7 @@ td .abroad{display:block;color:var(--amber);font:500 11.5px var(--mono);margin-t
     <div class="controls">
       <label for="q">Search name, institution or subfield<input id="q" type="search" placeholder="e.g. Hobza, Ecology" autocomplete="off"></label>
       <label for="inst">Institution<select id="inst"><option value="">All institutions</option></select></label>
+      <label for="fac" id="facWrap" hidden>Charles University faculty<select id="fac"></select></label>
       <label for="field">Field<select id="field"><option value="">All fields</option></select></label>
       <div style="display:grid;gap:4px"><span style="font-size:12px;color:var(--muted)">Metrics from</span>
         <div class="seg" role="group" aria-label="List"><button id="m-c" aria-pressed="true">Career</button><button id="m-s" aria-pressed="false">2025</button></div></div>
@@ -131,7 +142,8 @@ td .abroad{display:block;color:var(--amber);font:500 11.5px var(--mono);margin-t
       <dt>Self-cit.</dt><dd>Share of citations that are self-citations.</dd>
       <dt>Tags</dt><dd><span class="pill both">both</span> on both lists, <span class="pill c">career</span> career list only, <span class="pill s">2025</span> single-year list only.</dd>
     </dl>
-    <p>Institution names are as given in the dataset; smaller institutions are left blank there. A few people appear twice because their institution differs between the two lists. Group assignments may be adjusted by hand after review.</p>
+    <p>Charles University faculties are not in the dataset. They were inferred from the affiliations on each researcher's papers published since 2022 (since 2012 where needed) as recorded in Crossref, taking the faculty named on at least two papers most often. The dataset's separate entries for the Faculty of Pharmacy in Hradec Králové and the Faculty of Arts are counted under Charles University. Where too few papers carry an affiliation, the faculty is shown as not determined.</p>
+    <p>Institution names are otherwise as given in the dataset; smaller institutions are left blank there. A few people appear twice because their institution differs between the two lists. Group assignments may be adjusted by hand after review.</p>
   </section>
 </div>
 
@@ -144,7 +156,7 @@ const GROUPS=[
   {k:'',l:'All groups',d:'Everyone above in one list'},
 ];
 const GL={cz:'Czechia',top:'Czech career',p10:'≥10% CZ'};
-const S={rows:[],g:'cz',m:'c',q:'',inst:'',field:'',cc:'',only:'',sort:'rk',dir:1,limit:150};
+const S={rows:[],g:'cz',m:'c',q:'',inst:'',fac:'',field:'',cc:'',only:'',allInst:false,sort:'rk',dir:1,limit:150};
 const COLS=[
   {k:'idx',t:'#',num:1,nosort:1},
   {k:'n',t:'Researcher'},
@@ -170,11 +182,12 @@ function filtered(){
     if(!inGroup(r))return false;
     if(S.inst&&r.i!==S.inst)return false;
     if(S.cc&&r.cc!==S.cc)return false;
+    if(S.fac&&(S.fac==='__none'?!!r.fac:r.fac!==S.fac))return false;
     if(S.field&&r.f!==S.field)return false;
     if(S.only==='c'&&!r.c)return false;
     if(S.only==='s'&&!r.s)return false;
     if(S.only==='both'&&!(r.c&&r.s))return false;
-    if(q&&!(r.n.toLowerCase().includes(q)||r.s1.toLowerCase().includes(q)||r.f.toLowerCase().includes(q)||r.i.toLowerCase().includes(q)))return false;
+    if(q&&!(r.n.toLowerCase().includes(q)||(r.fac||'').toLowerCase().includes(q)||r.s1.toLowerCase().includes(q)||r.f.toLowerCase().includes(q)||r.i.toLowerCase().includes(q)))return false;
     return true;
   });
 }
@@ -187,6 +200,12 @@ function sorted(list){
   });
 }
 function tag(r){return r.c&&r.s?'<span class="pill both">both</span>':r.c?'<span class="pill c">career</span>':'<span class="pill s">2025</span>'}
+function instCell(r){
+  let h=r.i?esc(r.i):'<span class="muted">not given</span>';
+  if(r.i==='Charles University')h+=r.fac?`<span class="fac">${esc(r.fac)}</span>`:`<span class="fac unk">faculty not determined${r.fh?` · one paper: ${esc(r.fh)}`:''}</span>`;
+  if(r.mv&&r.g0)h+=`<span class="moved">moved here by hand from “${GROUPS.find(g=>g.k===r.g0).l}” · dataset country ${esc(r.cc)}</span>`;
+  return h+abroad(r);
+}
 function abroad(r){
   if(r.g==='cz')return '';
   const share=r.ts!=null&&r.tc?` · top country ${esc(r.tc)} ${r.ts}%`:'';
@@ -204,19 +223,46 @@ function render(){
     const cells=m?`<td class="num">${fmt.format(m.rk)}</td><td class="num">${m.c.toFixed(3)}</td><td class="num">${m.h}</td><td class="num">${fmt.format(m.nc)}</td><td class="num">${m.pct<0.01?'&lt;0.01':m.pct.toFixed(2)}%</td><td class="num">${m.sf.toFixed(1)}%</td>`
       :`<td class="num muted" colspan="6">not on the ${S.m==='c'?'career':'2025'} list</td>`;
     const gp=!S.g&&r.g!=='cz'?`<span class="pill g">${GL[r.g]}</span>`:'';
-    return `<tr><td class="num muted">${i+1}</td><td class="name">${esc(r.n)}${tag(r)}${gp}<span class="sub">active ${r.y0}–${r.y1} · ${fmt.format(r.np)} papers</span></td><td>${r.i?esc(r.i):'<span class="muted">not given</span>'}${abroad(r)}</td><td>${esc(r.f)}<span class="sub">${esc(r.s1)}</span></td>${cells}</tr>`;
+    return `<tr><td class="num muted">${i+1}</td><td class="name">${esc(r.n)}${tag(r)}${gp}<span class="sub">active ${r.y0}–${r.y1} · ${fmt.format(r.np)} papers</span></td><td>${instCell(r)}</td><td>${esc(r.f)}<span class="sub">${esc(r.s1)}</span></td>${cells}</tr>`;
   }).join(''):`<tr><td colspan="10" class="muted">No researchers match these filters. Clear a filter to see more.</td></tr>`;
   $('more').hidden=list.length<=S.limit;
   $('more').textContent=`Show ${fmt.format(Math.min(300,list.length-S.limit))} more`;
   renderHead();
-  document.querySelectorAll('#instBars .bar').forEach(b=>b.classList.toggle('on',b.dataset.v===(S.g==='cz'?S.inst:S.cc)));
+  drawLeft();
   document.querySelectorAll('#fieldBars .bar').forEach(b=>b.classList.toggle('on',b.dataset.v===S.field));
   document.querySelectorAll('.grp').forEach(b=>b.setAttribute('aria-pressed',b.dataset.g===S.g));
 }
 function counts(key){const m=new Map();S.rows.filter(inGroup).forEach(r=>{const v=r[key];if(v)m.set(v,(m.get(v)||0)+1)});return [...m].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))}
-function bars(el,data,key){
+const barHTML=(n,v,max,kind,on,label)=>`<button class="bar${kind==='fac'?' fac':''}${on?' on':''}" type="button" data-kind="${kind}" data-v="${esc(n)}" title="${esc(label||n)}: ${v}"><span class="lbl">${esc(label||n)}</span><span class="track"><span class="fill" style="width:${(100*v/max).toFixed(1)}%"></span></span><span class="v">${v}</span></button>`;
+function bars(el,data){
   const max=data.length?data[0][1]:1;
-  $(el).innerHTML=data.map(([n,v])=>`<button class="bar" type="button" data-v="${esc(n)}" title="${esc(n)}: ${v}"><span class="lbl">${esc(n)}</span><span class="track"><span class="fill" style="width:${(100*v/max).toFixed(1)}%"></span></span><span class="v">${v}</span></button>`).join('');
+  $(el).innerHTML=data.map(([n,v])=>barHTML(n,v,max,'field',n===S.field)).join('');
+}
+function facCounts(){const m=new Map();S.rows.filter(r=>inGroup(r)&&r.i==='Charles University').forEach(r=>{const v=r.fac||'__none';m.set(v,(m.get(v)||0)+1)});return [...m].sort((a,b)=>(a[0]==='__none')-(b[0]==='__none')||b[1]-a[1]||a[0].localeCompare(b[0]))}
+const facLabel=f=>f==='__none'?'Faculty not determined':f;
+function drawLeft(){
+  const cz=S.g!=='top'&&S.g!=='p10';
+  $('leftTitle').textContent=cz?'Institutions':'Current country';
+  const data=cz?counts('i'):counts('cc'), kind=cz?'inst':'cc', cur=cz?S.inst:S.cc;
+  const list=S.allInst?data:data.slice(0,12);
+  if(cur&&!list.some(([n])=>n===cur)){const hit=data.find(([n])=>n===cur);if(hit)list.push(hit)}
+  $('leftNote').textContent=cz?`Researchers per institution in the selected group, ${S.allInst?'all '+data.length:'top 12 of '+data.length}. Click to filter; Charles University opens its faculties.`:`Country of the most recent affiliation, ${S.allInst?'all '+data.length:'top 12 of '+data.length}. Click to filter.`;
+  const max=data.length?data[0][1]:1;
+  let h='';
+  for(const [n,v] of list){
+    h+=barHTML(n,v,max,kind,n===cur);
+    if(cz&&n==='Charles University'&&S.inst===n)for(const [f,fv] of facCounts())h+=barHTML(f,fv,max,'fac',S.fac===f,facLabel(f));
+  }
+  $('instBars').innerHTML=h;$('instBars').classList.toggle('all',S.allInst);
+  $('instAll').hidden=data.length<=12;
+  $('instAll').textContent=S.allInst?'Show top 12 only':`Show all ${data.length} ${cz?'institutions':'countries'}`;
+}
+function facSelect(){
+  const show=S.inst==='Charles University';$('facWrap').hidden=!show;
+  if(!show){S.fac='';return}
+  const fc=facCounts();
+  $('fac').innerHTML='<option value="">All faculties</option>'+fc.map(([f,v])=>`<option value="${esc(f)}">${esc(facLabel(f))} (${v})</option>`).join('');
+  $('fac').value=fc.some(([f])=>f===S.fac)?S.fac:(S.fac='');
 }
 function fillSelect(id,data,all){
   const cur=S[id];
@@ -225,27 +271,26 @@ function fillSelect(id,data,all){
 }
 function groupChanged(){
   const inst=counts('i'),field=counts('f');
-  const cz=S.g==='cz';
-  $('leftTitle').textContent=cz?'Institutions':'Current country';
-  $('leftNote').textContent=cz?'Researchers per institution in the selected group, top 12. Click to filter.':'Country of the most recent affiliation, top 12. Click to filter.';
-  bars('instBars',(cz?inst:counts('cc')).slice(0,12));bars('fieldBars',field.slice(0,12));
+  bars('fieldBars',field.slice(0,12));
   fillSelect('inst',inst,'All institutions');fillSelect('field',field,'All fields');
+  facSelect();
   S.limit=150;render();
 }
 function init(rows){
   S.rows=rows;
   const distinct=g=>new Set(rows.filter(r=>!g||r.g===g).map(r=>r.n)).size;
   $('groups').innerHTML=GROUPS.map(g=>`<button class="grp" type="button" data-g="${g.k}" aria-pressed="false"><b>${fmt.format(distinct(g.k))}</b><span class="gl">${g.l}</span><span class="gd">${g.d}</span></button>`).join('');
-  $('groups').onclick=e=>{const b=e.target.closest('.grp');if(!b)return;S.g=b.dataset.g;S.inst='';S.field='';S.cc='';groupChanged()};
-  ['instBars','fieldBars'].forEach((el,j)=>{$(el).onclick=e=>{const b=e.target.closest('.bar');if(!b)return;const key=j?'field':(S.g==='cz'?'inst':'cc');S[key]=S[key]===b.dataset.v?'':b.dataset.v;if($(key))$(key).value=S[key];S.limit=150;render()}});
+  $('groups').onclick=e=>{const b=e.target.closest('.grp');if(!b)return;S.g=b.dataset.g;S.inst='';S.fac='';S.field='';S.cc='';groupChanged()};
+  ['instBars','fieldBars'].forEach(el=>{$(el).onclick=e=>{const b=e.target.closest('.bar');if(!b)return;const key=b.dataset.kind;S[key]=S[key]===b.dataset.v?'':b.dataset.v;if(key==='inst'){S.fac='';$('inst').value=S.inst;facSelect()}else if(key==='fac'){$('fac').value=S.fac}else if($(key))$(key).value=S[key];S.limit=150;render()}});
+  $('instAll').onclick=()=>{S.allInst=!S.allInst;drawLeft()};
   groupChanged();
 }
 $('q').oninput=e=>{S.q=e.target.value;S.limit=150;render()};
-['inst','field','only'].forEach(k=>$(k).onchange=e=>{S[k]=e.target.value;S.limit=150;render()});
+['inst','fac','field','only'].forEach(k=>$(k).onchange=e=>{S[k]=e.target.value;if(k==='inst'){S.fac='';facSelect()}S.limit=150;render()});
 function setM(m){S.m=m;$('m-c').setAttribute('aria-pressed',m==='c');$('m-s').setAttribute('aria-pressed',m==='s');render()}
 $('m-c').onclick=()=>setM('c');$('m-s').onclick=()=>setM('s');
 $('more').onclick=()=>{S.limit+=300;render()};
-$('reset').onclick=()=>{Object.assign(S,{q:'',inst:'',field:'',cc:'',only:'',limit:150});['q','inst','field','only'].forEach(k=>$(k).value='');render()};
+$('reset').onclick=()=>{Object.assign(S,{q:'',inst:'',fac:'',field:'',cc:'',only:'',limit:150});facSelect();['q','inst','field','only'].forEach(k=>$(k).value='');render()};
 function sortBy(k){if(!k||k==='idx')return;if(S.sort===k)S.dir*=-1;else{S.sort=k;S.dir=(k==='c'||k==='h'||k==='nc')?-1:1}render()}
 $('head').onclick=e=>{const th=e.target.closest('th');if(th)sortBy(th.dataset.k)};
 $('head').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){const th=e.target.closest('th');if(th){e.preventDefault();sortBy(th.dataset.k)}}};
